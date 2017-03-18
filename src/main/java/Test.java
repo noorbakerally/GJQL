@@ -10,6 +10,7 @@ import org.apache.jena.rdf.model.*;
 import org.apache.jena.sparql.algebra.Algebra;
 import org.apache.jena.sparql.algebra.Op;
 import org.apache.jena.sparql.algebra.OpAsQuery;
+import org.apache.jena.sparql.algebra.Transformer;
 import org.apache.jena.sparql.algebra.op.OpBGP;
 import org.apache.jena.sparql.algebra.op.OpFilter;
 import org.apache.jena.sparql.core.BasicPattern;
@@ -48,6 +49,8 @@ public class Test {
 
         Query q = OpAsQuery.asQuery(op);
         Query q1 = OpAsQuery.asQuery(op);
+
+
 
 
 

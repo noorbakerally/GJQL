@@ -1,7 +1,8 @@
 PREFIX  osc:  <http://opensensingcity.emse.fr/ontology/>
 PREFIX  pkr:   <http://opensensingcity.emse.fr/Parking/resource/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 SELECT *
 WHERE {
         pkr:P570 a osc:Parking;
-            osc:name ?name
+            rdfs:label ?name
 }

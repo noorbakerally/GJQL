@@ -1,6 +1,7 @@
 /**
  * Created by bakerally on 3/17/17.
  */
+
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import fr.opensensingcity.GJQL.SPARQL;
@@ -8,13 +9,12 @@ import org.apache.jena.query.Query;
 import org.apache.jena.query.QueryFactory;
 import org.junit.Test;
 
-import java.io.*;
+import java.io.IOException;
 import java.net.URISyntaxException;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-public class TestQuery1  {
+public class TestQuery2 {
     String message = "Robert";
 
 

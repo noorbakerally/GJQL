@@ -1,0 +1,14 @@
+PREFIX geo: <http://www.w3.org/2003/01/geo/wgs84_pos#>
+PREFIX pk: <http://opensensingcity.emse.fr/ontologies/parking/>
+PREFIX pkr: <http://opensensingcity.emse.fr/Parking/resource/>
+PREFIX  osc:  <http://opensensingcity.emse.fr/ontology/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+SELECT ?name ?lat ?long
+WHERE {
+        pkr:P570 rdf:type osc:Parking;
+                 rdfs:label ?name;
+                 geo:lat ?lat;
+                 geo:long ?long;
+
+}

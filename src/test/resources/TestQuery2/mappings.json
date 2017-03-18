@@ -4,5 +4,8 @@
   "prefix":{
     "osc":"http://opensensingcity.emse.fr/ontology/",
     "pk":"http://opensensingcity.emse.fr/Parking/resource/"
+  },
+  "resourceException":{
+    "name":"http://www.w3.org/2000/01/rdf-schema#label"
   }
 }

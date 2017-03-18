@@ -1,0 +1,4 @@
+{
+  "_id":"P570",
+  "_required":["name","lat","long"]
+}
