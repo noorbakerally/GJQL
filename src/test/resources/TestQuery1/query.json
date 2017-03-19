@@ -1,5 +1,5 @@
 {
   "_id":"P570",
   "_type":"Parking",
-  "_required":["name"]
+  "_fields":["name"]
 }

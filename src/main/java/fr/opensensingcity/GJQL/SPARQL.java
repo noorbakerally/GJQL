@@ -44,11 +44,11 @@ public class SPARQL {
             bp.add(new Triple(mainSubjectNode, RDF.Nodes.type , mainSubjectType)) ;
         }
 
-        if (queryObject.has("_required")){
-            JsonElement elements = queryObject.get("_required");
-            Iterator<JsonElement> requiredElements = elements.getAsJsonArray().iterator();
-            while (requiredElements.hasNext()){
-                JsonElement currentElement = requiredElements.next();
+        if (queryObject.has("_fields")){
+            JsonElement elements = queryObject.get("_fields");
+            Iterator<JsonElement> fields = elements.getAsJsonArray().iterator();
+            while (fields.hasNext()){
+                JsonElement currentElement = fields.next();
                 String elementName = currentElement.getAsString();
 
                 String predicateIRI = null;
@@ -71,8 +71,10 @@ public class SPARQL {
         }
 
         Op op = new OpBGP(bp) ;
+
         Query q = OpAsQuery.asQuery(op);
-        q.addResultVar("?name");
+
+
 
         Map <String,String> prefixMap = new HashMap<String, String>();
         if (mappings.has("prefix")){
@@ -88,11 +90,11 @@ public class SPARQL {
 
 
 
-
+        q.setQueryResultStar(false);
         String query = q.serialize();
 
 
-        //return query;
+        //System.out.println("Generated Query:"+query);
 
         return q;
     }

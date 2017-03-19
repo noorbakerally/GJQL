@@ -1,4 +1,3 @@
 {
-  "_id":"P570",
-  "_required":["name","lat","long"]
+  "_fields":["name","lat","long"]
 }

@@ -4,7 +4,7 @@ PREFIX pkr: <http://opensensingcity.emse.fr/Parking/resource/>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 SELECT ?name ?lat ?long
 WHERE {
-        pkr:P570 rdfs:label ?name;
+        _:x rdfs:label ?name;
                        geo:lat ?lat;
                        geo:long ?long;
 }
