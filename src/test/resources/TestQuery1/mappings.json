@@ -1,7 +1,7 @@
 {
   "resourceNamespace":"http://opensensingcity.emse.fr/Parking/resource/",
   "classNamespace":"http://opensensingcity.emse.fr/ontology/",
-  "prefix":{
+  "prefixes":{
     "osc":"http://opensensingcity.emse.fr/ontology/",
     "pk":"http://opensensingcity.emse.fr/Parking/resource/"
   }

@@ -23,7 +23,8 @@ public abstract class QResource {
     public void setrId(String rId) {
         this.rId = rId;
     }
-
+    public boolean hasId(){ return rId!=null;}
+    public boolean hasType(){return rType !=null;}
     public String getrType() {
         return rType;
     }

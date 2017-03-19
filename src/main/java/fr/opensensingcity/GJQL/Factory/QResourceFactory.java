@@ -1,4 +1,4 @@
-package fr.opensensingcity.GJQL.QResource.Factory;
+package fr.opensensingcity.GJQL.Factory;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import fr.opensensingcity.GJQL.QResource.QResource;
@@ -8,7 +8,7 @@ import java.util.Iterator;
 /**
  * Created by bakerally on 3/19/17.
  */
-public class SimpleQResourceFactory {
+public class QResourceFactory {
     public static QResource loadSimpleQResourceFromJSON(JsonObject queryObject){
         QResource simpleQResource = new SimpleQResource();
 

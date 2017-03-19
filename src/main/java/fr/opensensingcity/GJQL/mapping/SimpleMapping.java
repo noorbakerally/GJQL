@@ -2,6 +2,20 @@ package fr.opensensingcity.GJQL.mapping;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import fr.opensensingcity.GJQL.QResource.QResource;
+import org.apache.jena.graph.Node;
+import org.apache.jena.graph.NodeFactory;
+import org.apache.jena.graph.Triple;
+import org.apache.jena.query.Query;
+import org.apache.jena.shared.PrefixMapping;
+import org.apache.jena.shared.impl.PrefixMappingImpl;
+import org.apache.jena.sparql.algebra.Op;
+import org.apache.jena.sparql.algebra.OpAsQuery;
+import org.apache.jena.sparql.algebra.op.OpBGP;
+import org.apache.jena.sparql.core.BasicPattern;
+import org.apache.jena.sparql.core.Var;
+import org.apache.jena.sparql.util.PrefixMapping2;
+import org.apache.jena.vocabulary.RDF;
 
 import java.util.Iterator;
 import java.util.Map;
@@ -11,30 +25,47 @@ import java.util.Map;
  */
 public class SimpleMapping extends Mapping {
 
+    public SimpleMapping(){
+        super();
+    }
 
-    public void loadMapping(Object mappingObject) {
-        JsonObject mappingJsonObject = (JsonObject) mappingObject;
-        Mapping simpleMapping = new SimpleMapping();
 
-        defaultResourceNamespace = mappingJsonObject.get("resourceNamespace").getAsString();
-        defaultClassNamespace = mappingJsonObject.get("classNamespace").getAsString();
+    public Query generateSPARQLQuery(QResource resource) {
+        Node mainSubjectNode = NodeFactory.createBlankNode();
+        BasicPattern bp = new BasicPattern() ;
 
-        if (mappingJsonObject.has("prefixes")){
-            JsonObject prefixObject = mappingJsonObject.get("prefix").getAsJsonObject();
-            Iterator<Map.Entry<String, JsonElement>> prefixIterator = prefixObject.entrySet().iterator();
-            while (prefixIterator.hasNext()){
-                Map.Entry<String, JsonElement> currentPrefix = prefixIterator.next();
-                prefixes.put(currentPrefix.getKey(),currentPrefix.getValue().getAsString());
-            }
+        //creating an identified subject if there is an Id
+        if (resource.hasId()){
+            String resourceIRI = defaultResourceNamespace + resource.getrId();
+            mainSubjectNode = NodeFactory.createURI(resourceIRI);
         }
 
-        if (mappingJsonObject.has("resourceExceptions")){
-            JsonObject resourceExceptionsObject = mappingJsonObject.get("resourceExceptions").getAsJsonObject();
-            Iterator<Map.Entry<String, JsonElement>> reIterator = resourceExceptionsObject.entrySet().iterator();
-            while (reIterator.hasNext()){
-                Map.Entry<String, JsonElement> currentPrefix = reIterator.next();
-                resourceExceptions.put(currentPrefix.getKey(),currentPrefix.getValue().getAsString());
-            }
+        //creating a type for the resource
+        if (resource.hasType()){
+            String mainTypeIRI = defaultClassNamespace + resource.getrType();
+            Node mainSubjectType = NodeFactory.createURI(mainTypeIRI);
+            bp.add(new Triple(mainSubjectNode, RDF.Nodes.type , mainSubjectType)) ;
         }
+
+        //generating a triple pattern for every atomic fields
+        for (String field:resource.getAtomicFields()){
+            String predicateIRI;
+            if (resourceExceptions.containsKey(field)){
+                predicateIRI = resourceExceptions.get(field) + field;
+            } else {
+                predicateIRI = defaultClassNamespace + field;
+            }
+            Node predicateNode = NodeFactory.createURI(predicateIRI);
+            Var variableNode = Var.alloc(field);
+            bp.add(new Triple(mainSubjectNode, predicateNode ,variableNode)) ;
+        }
+
+        Op op = new OpBGP(bp) ;
+        Query q = OpAsQuery.asQuery(op);
+
+        for (String prefix:prefixes.keySet()){
+            q.setPrefix(prefix,prefixes.get(prefix));
+        }
+        return q;
     }
 }

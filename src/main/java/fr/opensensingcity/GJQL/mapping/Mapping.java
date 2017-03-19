@@ -3,7 +3,10 @@ package fr.opensensingcity.GJQL.mapping;
 import com.fasterxml.jackson.databind.util.JSONPObject;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import fr.opensensingcity.GJQL.QResource.QResource;
+import org.apache.jena.query.Query;
 
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
@@ -16,7 +19,10 @@ public abstract class Mapping {
     Map<String,String> prefixes;
     Map <String,String> resourceExceptions;
 
-
+    public  Mapping(){
+        prefixes = new HashMap<String, String>();
+        resourceExceptions = new HashMap<String, String>();
+    }
 
     public String getDefaultClassNamespace() {
         return defaultClassNamespace;
@@ -35,7 +41,30 @@ public abstract class Mapping {
     }
 
 
-    public abstract void loadMapping(Object mappingObject);
+    public String getDefaultResourceNamespace() {
+        return defaultResourceNamespace;
+    }
 
+    public void setDefaultResourceNamespace(String defaultResourceNamespace) {
+        this.defaultResourceNamespace = defaultResourceNamespace;
+    }
+
+    public Map<String, String> getPrefixes() {
+        return prefixes;
+    }
+
+    public void setPrefixes(Map<String, String> prefixes) {
+        this.prefixes = prefixes;
+    }
+
+    public Map<String, String> getResourceExceptions() {
+        return resourceExceptions;
+    }
+
+    public void setResourceExceptions(Map<String, String> resourceExceptions) {
+        this.resourceExceptions = resourceExceptions;
+    }
+
+    public abstract Query generateSPARQLQuery(QResource resource);
 
 }

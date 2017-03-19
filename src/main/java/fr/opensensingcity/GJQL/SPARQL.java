@@ -67,7 +67,7 @@ public class SPARQL {
                 bp.add(new Triple(mainSubjectNode, predicateNode ,variableNode)) ;
                 projectVars.add(variableNode);
             }
-            
+
         }
 
         Op op = new OpBGP(bp) ;
