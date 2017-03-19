@@ -7,7 +7,6 @@ import com.google.gson.JsonParser;
 import fr.opensensingcity.GJQL.Factory.MappingFactory;
 import fr.opensensingcity.GJQL.Factory.QResourceFactory;
 import fr.opensensingcity.GJQL.QResource.QResource;
-import fr.opensensingcity.GJQL.SPARQL;
 import fr.opensensingcity.GJQL.mapping.Mapping;
 import org.apache.jena.query.Query;
 import org.apache.jena.query.QueryFactory;
