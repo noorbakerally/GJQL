@@ -51,7 +51,7 @@ public class SimpleMapping extends Mapping {
         for (String field:resource.getAtomicFields()){
             String predicateIRI;
             if (resourceExceptions.containsKey(field)){
-                predicateIRI = resourceExceptions.get(field) + field;
+                predicateIRI = resourceExceptions.get(field);
             } else {
                 predicateIRI = defaultClassNamespace + field;
             }

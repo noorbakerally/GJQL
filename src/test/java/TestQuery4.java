@@ -4,7 +4,11 @@
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import fr.opensensingcity.GJQL.Factory.MappingFactory;
+import fr.opensensingcity.GJQL.Factory.QResourceFactory;
+import fr.opensensingcity.GJQL.QResource.QResource;
 import fr.opensensingcity.GJQL.SPARQL;
+import fr.opensensingcity.GJQL.mapping.Mapping;
 import org.apache.jena.query.Query;
 import org.apache.jena.query.QueryFactory;
 import org.junit.Test;
@@ -21,19 +25,25 @@ public class TestQuery4 {
     @Test
     public void testGenerateSPARQLFromJson() throws IOException, URISyntaxException {
         JsonParser parser = new JsonParser();
+
+        //get resource representation
         String queryJSON =TestUtils.getFileContentFromResource(this,"query.json");
         JsonObject queryObject = parser.parse(queryJSON).getAsJsonObject();
+        QResource resource = QResourceFactory.
+                loadSimpleQResourceFromJSON(queryObject);
+
+        //get mapping representation
         String queryMappings = TestUtils.getFileContentFromResource(this,"mappings.json");
         JsonObject queryMappingObject = parser.parse(queryMappings).getAsJsonObject();
-        Query query = SPARQL.generateSPARQLQuery(queryObject,queryMappingObject);
+        Mapping simpleMapping = MappingFactory.generateSimpleMappingFromJSON(queryMappingObject);
+
+        //generate query
+        Query query = simpleMapping.generateSPARQLQuery(resource);
+        query.setQueryResultStar(false);
+        System.out.println(query.serialize());
+
         String oqueryStr  = TestUtils.getFileContentFromResource(this,"query.rq");
         Query originalQuery = QueryFactory.create(oqueryStr);
-
-        /*System.out.println("###Original Query#####");
-        System.out.println(oqueryStr);
-        System.out.println("###Generated Query####");
-        System.out.println(query.serialize());*/
-
         //assertTrue(originalQuery.getQueryPattern().equalTo(query.getQueryPattern(),null));
         assertTrue(true);
     }
