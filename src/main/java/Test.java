@@ -2,6 +2,8 @@
  * Created by bakerally on 3/17/17.
  */
 
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import org.apache.jena.datatypes.xsd.XSDDatatype ;
 import org.apache.jena.graph.NodeFactory;
 import org.apache.jena.graph.Triple;
@@ -25,25 +27,22 @@ import org.apache.jena.sparql.expr.NodeValue;
 
 public class Test {
     public static void main (String [] args){
-        String query1= "SELECT ?name where { <http://www.example.com/P500> a <http://www.example.com/Parking>; " +
-                "<http://www.example.com/name> ?name .}";
-
-        String query2= "SELECT ?name where { <http://www.example.com/P500> <http://www.example.com/name> ?name;" +
-                " a <http://www.example.com/Parking> .}";
-
-        Query q1 = QueryFactory.create(query1);
-        Query q2 = QueryFactory.create(query2);
-
-
-
-        System.out.println("Compare query pattern");
-        System.out.println(q1.getQueryPattern().equalTo(q2.getQueryPattern(),null));
-
-        Op qop1 = Algebra.compile(q1) ;
-        Op qop2 = Algebra.compile(q2) ;
-
-        System.out.println("Compare query operator");
-        System.out.println(qop1.equalTo(qop2,null));
+       String mappingStr = "{\n" +
+               "  \"resourceNamespace\":\"http://opensensingcity.emse.fr/Parking/resource/\",\n" +
+               "  \"classNamespace\":\"http://opensensingcity.emse.fr/ontology/\",\n" +
+               "  \"prefix\":{\n" +
+               "    \"osc\":\"http://opensensingcity.emse.fr/ontology/\",\n" +
+               "    \"pk\":\"http://opensensingcity.emse.fr/Parking/resource/\"\n" +
+               "  },\n" +
+               "  \"resourceException\":{\n" +
+               "    \"name\":\"http://www.w3.org/2000/01/rdf-schema#label\",\n" +
+               "    \"lat\":\"http://www.w3.org/2003/01/geo/wgs84_pos#lat\",\n" +
+               "    \"long\":\"http://www.w3.org/2003/01/geo/wgs84_pos#long\"\n" +
+               "  }\n" +
+               "}";
+        JsonParser parser = new JsonParser();
+        JsonObject queryObject = parser.parse(mappingStr).getAsJsonObject();
+        System.out.println(queryObject);
 
     }
 
