@@ -12,7 +12,7 @@ import java.util.Map;
 public class SimpleMapping extends Mapping {
 
 
-    public Mapping loadMapping(Object mappingObject) {
+    public void loadMapping(Object mappingObject) {
         JsonObject mappingJsonObject = (JsonObject) mappingObject;
         Mapping simpleMapping = new SimpleMapping();
 
@@ -36,7 +36,5 @@ public class SimpleMapping extends Mapping {
                 resourceExceptions.put(currentPrefix.getKey(),currentPrefix.getValue().getAsString());
             }
         }
-
-        return simpleMapping;
     }
 }

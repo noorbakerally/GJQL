@@ -35,7 +35,7 @@ public abstract class Mapping {
     }
 
 
-    public abstract Mapping loadMapping(Object mappingObject);
+    public abstract void loadMapping(Object mappingObject);
 
 
 }
