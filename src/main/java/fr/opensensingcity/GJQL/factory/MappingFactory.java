@@ -1,4 +1,4 @@
-package fr.opensensingcity.GJQL.Factory;
+package fr.opensensingcity.GJQL.factory;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;

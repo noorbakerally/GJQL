@@ -1,24 +1,16 @@
 package fr.opensensingcity.GJQL.mapping;
 
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import fr.opensensingcity.GJQL.QResource.QResource;
+import fr.opensensingcity.GJQL.qresource.QResource;
 import org.apache.jena.graph.Node;
 import org.apache.jena.graph.NodeFactory;
 import org.apache.jena.graph.Triple;
 import org.apache.jena.query.Query;
-import org.apache.jena.shared.PrefixMapping;
-import org.apache.jena.shared.impl.PrefixMappingImpl;
 import org.apache.jena.sparql.algebra.Op;
 import org.apache.jena.sparql.algebra.OpAsQuery;
 import org.apache.jena.sparql.algebra.op.OpBGP;
 import org.apache.jena.sparql.core.BasicPattern;
 import org.apache.jena.sparql.core.Var;
-import org.apache.jena.sparql.util.PrefixMapping2;
 import org.apache.jena.vocabulary.RDF;
-
-import java.util.Iterator;
-import java.util.Map;
 
 /**
  * Created by bakerally on 3/19/17.

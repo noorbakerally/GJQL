@@ -1,11 +1,9 @@
-package fr.opensensingcity.GJQL.QResource;
+package fr.opensensingcity.GJQL.qresource;
 
-import fr.opensensingcity.GJQL.mapping.Field;
 import fr.opensensingcity.GJQL.mapping.Mapping;
 import org.apache.jena.query.Query;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by bakerally on 3/19/17.

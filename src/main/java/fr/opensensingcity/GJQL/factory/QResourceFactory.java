@@ -1,8 +1,8 @@
-package fr.opensensingcity.GJQL.Factory;
+package fr.opensensingcity.GJQL.factory;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import fr.opensensingcity.GJQL.QResource.QResource;
-import fr.opensensingcity.GJQL.QResource.SimpleQResource;
+import fr.opensensingcity.GJQL.qresource.QResource;
+import fr.opensensingcity.GJQL.qresource.SimpleQResource;
 import java.util.Iterator;
 
 /**

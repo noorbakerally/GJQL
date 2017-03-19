@@ -1,13 +1,9 @@
 package fr.opensensingcity.GJQL.mapping;
 
-import com.fasterxml.jackson.databind.util.JSONPObject;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import fr.opensensingcity.GJQL.QResource.QResource;
+import fr.opensensingcity.GJQL.qresource.QResource;
 import org.apache.jena.query.Query;
 
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 
 /**
