@@ -2,6 +2,8 @@ package fr.opensensingcity.GJQL.qresource;
 
 import fr.opensensingcity.GJQL.mapping.Mapping;
 import org.apache.jena.query.Query;
+import org.apache.jena.query.ResultSet;
+import org.apache.jena.sparql.core.ResultBinding;
 
 import java.util.List;
 
@@ -41,4 +43,5 @@ public abstract class QResource {
     public void setAtomicFields(List<String> atomicFields) {
         this.atomicFields = atomicFields;
     }
+    public abstract  String serializeResult(ResultSet results);
 }

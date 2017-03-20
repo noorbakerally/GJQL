@@ -2,8 +2,10 @@
  * Created by bakerally on 3/17/17.
  */
 
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import fr.opensensingcity.GJQL.GraphUtils;
 import fr.opensensingcity.GJQL.factory.MappingFactory;
 import fr.opensensingcity.GJQL.factory.QResourceFactory;
 import fr.opensensingcity.GJQL.qresource.QResource;
@@ -39,11 +41,27 @@ public class TestQuery4 {
         //generate query
         Query query = simpleMapping.generateSPARQLQuery(resource);
         query.setQueryResultStar(false);
-        System.out.println(query.serialize());
+
 
         String oqueryStr  = TestUtils.getFileContentFromResource(this,"query.rq");
         Query originalQuery = QueryFactory.create(oqueryStr);
         //assertTrue(originalQuery.getQueryPattern().equalTo(query.getQueryPattern(),null));
-        assertTrue(true);
+
+        //generate results from query
+        String modelIRI = getClass().getResource("/"+getClass().getSimpleName()).toString()+"/graph.ttl";
+        String result = resource.serializeResult(GraphUtils.executeSPARQL(query,modelIRI));
+       /* System.out.println("GEnerated Result:"+result);*/
+
+        JsonElement generatedResultObject = parser.parse(result);
+
+        //load original result
+        String originalResult = TestUtils.getFileContentFromResource(this,"result.json");
+        JsonElement originalResultObject = parser.parse(originalResult);
+
+        //System.out.println(generatedResultObject);
+        //System.out.println(originalResultObject);
+
+        assertTrue(generatedResultObject.equals(originalResultObject));
+
     }
 }

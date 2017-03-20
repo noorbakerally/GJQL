@@ -17,7 +17,7 @@
 pk:P570
         a                          osc:Parking ;
         osc:name                    "Parking Ney" ;
-        rdfs:label                 "Parking Ney" ;
+        rdfs:label                 "Parking NeyLabel" ;
         pk:nbBicycleParkingPlaces  0 ;
         pk:nbParkingSpaces         "160" ;
         geo:lat                    45.770088718787825e0 ;

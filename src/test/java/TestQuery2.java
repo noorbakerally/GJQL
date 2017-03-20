@@ -4,6 +4,7 @@
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import fr.opensensingcity.GJQL.GraphUtils;
 import fr.opensensingcity.GJQL.factory.MappingFactory;
 import fr.opensensingcity.GJQL.factory.QResourceFactory;
 import fr.opensensingcity.GJQL.qresource.QResource;
@@ -43,6 +44,21 @@ public class TestQuery2 {
 
         String oqueryStr  = TestUtils.getFileContentFromResource(this,"query.rq");
         Query originalQuery = QueryFactory.create(oqueryStr);
-        assertTrue(originalQuery.getQueryPattern().equalTo(query.getQueryPattern(),null));
+        //assertTrue(originalQuery.getQueryPattern().equalTo(query.getQueryPattern(),null));
+
+        //generate results from query
+        String modelIRI = getClass().getResource("/"+getClass().getSimpleName()).toString()+"/graph.ttl";
+        String result = resource.serializeResult(GraphUtils.executeSPARQL(query,modelIRI));
+        JsonObject generatedResultObject = parser.parse(result).getAsJsonObject();
+
+        //load original result
+        String originalResult = TestUtils.getFileContentFromResource(this,"result.json");
+        JsonObject originalResultObject = parser.parse(originalResult).getAsJsonObject();
+
+        /*System.out.println(generatedResultObject);
+        System.out.println(originalResultObject);*/
+
+
+        assertTrue(generatedResultObject.equals(originalResultObject));
     }
 }
