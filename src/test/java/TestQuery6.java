@@ -34,14 +34,14 @@ public class TestQuery6 {
         JsonObject queryObject = parser.parse(queryJSON).getAsJsonObject();
         QResource resource = QResourceFactory.loadSimpleQResourceFromJSON(queryObject);
 
-        /*
+
         //get mapping representation
         String queryMappings = TestUtils.getFileContentFromResource(this,"mappings.json");
         JsonObject queryMappingObject = parser.parse(queryMappings).getAsJsonObject();
         Mapping simpleMapping = MappingFactory.generateSimpleMappingFromJSON(queryMappingObject);
 
 
-
+        /*
         //generate query
         Query query = simpleMapping.generateSPARQLQuery(resource);
         query.setQueryResultStar(false);
