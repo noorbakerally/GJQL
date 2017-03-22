@@ -17,7 +17,7 @@
 
 
 pk:M1 a osc:ParkingManager;
-    rdfs:label "French Ville";
+    osc:name "French Ville";
     foaf:homepage "https://www.grandlyon.com/";
     osc:manages pk:P570,pk:P571 .
 

@@ -1,6 +1,7 @@
 {
   "_id":"P570",
-  "_type":"Parking",
-  "_fields":["name","lat","long"]
-
+  "_fields":["name","lat","long"],
+  "Manager":{
+    "_type":"ParkingManager",
+    "_fields":["name","homepage"]}
 }
