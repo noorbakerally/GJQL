@@ -12,6 +12,8 @@ import org.apache.jena.sparql.core.BasicPattern;
 import org.apache.jena.sparql.core.Var;
 import org.apache.jena.vocabulary.RDF;
 
+import java.util.Map;
+
 /**
  * Created by bakerally on 3/19/17.
  */
@@ -52,7 +54,32 @@ public class SimpleMapping extends Mapping {
             bp.add(new Triple(mainSubjectNode, predicateNode ,variableNode)) ;
         }
 
+        //generating the query graph patterns for every composite fields
+        Map<String, QResource> currentQResources = resource.getqResources();
+        for (String field:currentQResources.keySet()){
+            String predicateIRI;
+            if (resourceExceptions.containsKey(field)){
+                predicateIRI = resourceExceptions.get(field);
+            } else {
+                predicateIRI = defaultClassNamespace + field;
+            }
+            Node predicateNode = NodeFactory.createURI(predicateIRI);
+
+            //check if qresource has id
+            Node subjectNode = NodeFactory.createBlankNode();
+            QResource currentQResource = currentQResources.get(field);
+            if (currentQResource.hasId()){
+                String resourceIRI = defaultResourceNamespace + resource.getrId();
+                subjectNode = NodeFactory.createURI(resourceIRI);
+            }
+            BasicPattern newBPs = currentQResource.generateBasicPattern(this,subjectNode,mainSubjectNode,predicateNode);
+            bp.addAll(newBPs);
+
+
+        }
+
         Op op = new OpBGP(bp) ;
+
         Query q = OpAsQuery.asQuery(op);
 
         for (String prefix:prefixes.keySet()){

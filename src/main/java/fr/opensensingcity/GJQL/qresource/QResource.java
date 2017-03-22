@@ -1,11 +1,14 @@
 package fr.opensensingcity.GJQL.qresource;
 
 import fr.opensensingcity.GJQL.mapping.Mapping;
+import org.apache.jena.graph.Node;
 import org.apache.jena.query.Query;
 import org.apache.jena.query.ResultSet;
+import org.apache.jena.sparql.core.BasicPattern;
 import org.apache.jena.sparql.core.ResultBinding;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by bakerally on 3/19/17.
@@ -14,7 +17,8 @@ public abstract class QResource {
     String rId;
     String rType;
     List<String> atomicFields;
-    List <QResource> qResources;
+    Map<String, QResource> qResources;
+
     public abstract Query generateSPARQL(Mapping mapping);
 
     public String getrId() {
@@ -41,13 +45,21 @@ public abstract class QResource {
     public void addAtomicFields(String field){
         atomicFields.add(field);
     }
-    public void addQResource(QResource qResource){
-        qResources.add(qResource);
+    public void addQResource(String key,QResource qResource){
+        qResources.put(key,qResource);
     }
     public void setAtomicFields(List<String> atomicFields) {
         this.atomicFields = atomicFields;
     }
     public abstract  String serializeResult(ResultSet results);
 
+    public abstract BasicPattern generateBasicPattern(Mapping mapping, Node subjectNode,Node  linkNode,Node predicateNode);
 
+    public Map<String, QResource> getqResources() {
+        return qResources;
+    }
+
+    public void setqResources(Map<String, QResource> qResources) {
+        this.qResources = qResources;
+    }
 }

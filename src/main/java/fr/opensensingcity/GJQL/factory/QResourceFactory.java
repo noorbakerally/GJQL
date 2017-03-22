@@ -4,6 +4,8 @@ import com.google.gson.JsonObject;
 import fr.opensensingcity.GJQL.qresource.QResource;
 import fr.opensensingcity.GJQL.qresource.SimpleQResource;
 import java.util.Iterator;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * Created by bakerally on 3/19/17.
@@ -31,20 +33,24 @@ public class QResourceFactory {
             //else insert as compound object
             while (fields.hasNext()) {
                 JsonElement currentField = fields.next();
-                if (currentField.isJsonObject()){
-                    JsonObject currentFieldAsJsonObject = currentField.getAsJsonObject();
-                    QResource newQResource = QResourceFactory.loadSimpleQResourceFromJSON(currentFieldAsJsonObject);
-                    simpleQResource.addQResource(newQResource);
-
-                } else {
-                    //for atomic elements
-                    simpleQResource.addAtomicFields(currentField.getAsString());
-                }
-
-
-                
+                simpleQResource.addAtomicFields(currentField.getAsString());
             }
         }
+        //remote element which have been processed
+        queryObject.remove("_id");
+        queryObject.remove("_type");
+        queryObject.remove("fields");
+
+        Iterator<Map.Entry<String, JsonElement>> remainingElements = queryObject.entrySet().iterator();
+        while (remainingElements.hasNext()){
+            Map.Entry<String, JsonElement> currentRemainingElement = remainingElements.next();
+            if (currentRemainingElement.getValue().isJsonObject()){
+                JsonObject currentFieldAsJsonObject = currentRemainingElement.getValue().getAsJsonObject();
+                QResource newQResource = QResourceFactory.loadSimpleQResourceFromJSON(currentFieldAsJsonObject);
+                simpleQResource.addQResource(currentRemainingElement.getKey(),newQResource);
+            }
+        }
+
         return simpleQResource;
     }
 }

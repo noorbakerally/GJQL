@@ -29,11 +29,6 @@ public class TestQuery6 {
 
         System.out.println("#####Test6####");
 
-        //get resource representation
-        String queryJSON =TestUtils.getFileContentFromResource(this,"query.json");
-        JsonObject queryObject = parser.parse(queryJSON).getAsJsonObject();
-        QResource resource = QResourceFactory.loadSimpleQResourceFromJSON(queryObject);
-
 
         //get mapping representation
         String queryMappings = TestUtils.getFileContentFromResource(this,"mappings.json");
@@ -41,12 +36,18 @@ public class TestQuery6 {
         Mapping simpleMapping = MappingFactory.generateSimpleMappingFromJSON(queryMappingObject);
 
 
-        /*
+        //get resource representation
+        String queryJSON =TestUtils.getFileContentFromResource(this,"query.json");
+        JsonObject queryObject = parser.parse(queryJSON).getAsJsonObject();
+        QResource resource = QResourceFactory.loadSimpleQResourceFromJSON(queryObject);
+
+
         //generate query
         Query query = simpleMapping.generateSPARQLQuery(resource);
         query.setQueryResultStar(false);
+        System.out.println(query.toString());
 
-
+        /*
         String oqueryStr  = TestUtils.getFileContentFromResource(this,"query.rq");
         Query originalQuery = QueryFactory.create(oqueryStr);
         //assertTrue(originalQuery.getQueryPattern().equalTo(query.getQueryPattern(),null));

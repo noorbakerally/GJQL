@@ -1,7 +1,8 @@
 {
   "_id":"P570",
   "_fields":["name","lat","long"],
-  "manager":{
+  "Manager":{
     "_fields":["name","homepage"]
+
   }
 }
