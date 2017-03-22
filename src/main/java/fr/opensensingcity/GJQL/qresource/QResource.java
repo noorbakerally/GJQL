@@ -14,6 +14,7 @@ public abstract class QResource {
     String rId;
     String rType;
     List<String> atomicFields;
+    List <QResource> qResources;
     public abstract Query generateSPARQL(Mapping mapping);
 
     public String getrId() {

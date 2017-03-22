@@ -21,8 +21,14 @@ public class QResourceFactory {
         }
 
         if (queryObject.has("_fields")) {
+            //get the _fields iterator
             JsonElement elements = queryObject.get("_fields");
             Iterator<JsonElement> fields = elements.getAsJsonArray().iterator();
+
+            //iterate on every element of the fields
+            //check its type
+            //if atomic then insert into atomic list
+            //else insert as compound object
             while (fields.hasNext()) {
                 simpleQResource.addAtomicFields(fields.next().getAsString());
             }

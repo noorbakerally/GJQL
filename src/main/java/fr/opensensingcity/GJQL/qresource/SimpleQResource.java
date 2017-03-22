@@ -16,6 +16,7 @@ import java.util.Iterator;
 public class SimpleQResource extends QResource {
     public SimpleQResource(){
         atomicFields = new ArrayList<String>();
+        qResources = new ArrayList<QResource>();
     }
     public Query generateSPARQL(Mapping mapping) {
         return null;
