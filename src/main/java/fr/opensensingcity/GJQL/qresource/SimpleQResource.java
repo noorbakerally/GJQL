@@ -16,6 +16,7 @@ import org.apache.jena.vocabulary.RDF;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Random;
 
 /**
  * Created by bakerally on 3/19/17.
@@ -24,6 +25,8 @@ public class SimpleQResource extends QResource {
     public SimpleQResource(){
         atomicFields = new ArrayList<String>();
         qResources = new HashMap<String, QResource>();
+        Random random = new Random();
+        qid = String.valueOf(Math.abs(random.nextLong()));
     }
     public Query generateSPARQL(Mapping mapping) {
         return null;
@@ -53,7 +56,7 @@ public class SimpleQResource extends QResource {
 
             QuerySolution binding = bindings.next();
             for (String atomicField:atomicFields){
-                result.addProperty(atomicField,binding.get(atomicField).asLiteral().getLexicalForm());
+                result.addProperty(atomicField,binding.get(atomicField+getQid()).asLiteral().getLexicalForm());
             }
             if (!hasId()){
                 arrResult.add(result);
@@ -93,7 +96,7 @@ public class SimpleQResource extends QResource {
                 predicateIRI = mapping.getDefaultClassNamespace() + field;
             }
             Node predicateNode = NodeFactory.createURI(predicateIRI);
-            Var variableNode = Var.alloc(field);
+            Var variableNode = Var.alloc(field+qid);
             bp.add(new Triple(mainSubjectNode, predicateNode ,variableNode)) ;
         }
         bp.add(new Triple(linkNode,predicateLinkNode,mainSubjectNode));

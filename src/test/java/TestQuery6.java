@@ -47,15 +47,17 @@ public class TestQuery6 {
         query.setQueryResultStar(false);
         System.out.println(query.toString());
 
+        //generate results from query
+        String modelIRI = getClass().getResource("/"+getClass().getSimpleName()).toString()+"/graph.ttl";
+        String result = resource.serializeResult(GraphUtils.executeSPARQL(query,modelIRI));
+        System.out.println("GEnerated Result:"+result);
+
         /*
         String oqueryStr  = TestUtils.getFileContentFromResource(this,"query.rq");
         Query originalQuery = QueryFactory.create(oqueryStr);
         //assertTrue(originalQuery.getQueryPattern().equalTo(query.getQueryPattern(),null));
 
-        //generate results from query
-        String modelIRI = getClass().getResource("/"+getClass().getSimpleName()).toString()+"/graph.ttl";
-        String result = resource.serializeResult(GraphUtils.executeSPARQL(query,modelIRI));
-       *//* System.out.println("GEnerated Result:"+result);*//*
+
 
         JsonElement generatedResultObject = parser.parse(result);
 

@@ -14,6 +14,10 @@ import java.util.Map;
  * Created by bakerally on 3/19/17.
  */
 public abstract class QResource {
+    String qid;
+
+
+
     String rId;
     String rType;
     List<String> atomicFields;
@@ -61,5 +65,12 @@ public abstract class QResource {
 
     public void setqResources(Map<String, QResource> qResources) {
         this.qResources = qResources;
+    }
+    public String getQid() {
+        return qid;
+    }
+
+    public void setQid(String qid) {
+        this.qid = qid;
     }
 }

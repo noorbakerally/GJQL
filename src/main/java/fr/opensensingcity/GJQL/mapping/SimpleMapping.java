@@ -50,7 +50,7 @@ public class SimpleMapping extends Mapping {
                 predicateIRI = defaultClassNamespace + field;
             }
             Node predicateNode = NodeFactory.createURI(predicateIRI);
-            Var variableNode = Var.alloc(field);
+            Var variableNode = Var.alloc(field+resource.getQid());
             bp.add(new Triple(mainSubjectNode, predicateNode ,variableNode)) ;
         }
 
