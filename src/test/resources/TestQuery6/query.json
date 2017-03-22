@@ -5,6 +5,7 @@
     "_fields":["name","homepage"],
     "parking":{
       "_id":"P571",
+      "url":"http://www.asdasd.com/asd+lat+/+long",
       "_fields":["name","lat","long"]
     }
   }
