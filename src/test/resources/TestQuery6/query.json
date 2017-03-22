@@ -2,11 +2,6 @@
   "_id":"P570",
   "_fields":["name","lat","long"],
   "manager":{
-    "_fields":["name","homepage"],
-    "parking":{
-      "_id":"P571",
-      "url":"http://www.asdasd.com/asd+lat+/+long",
-      "_fields":["name","lat","long"]
-    }
+    "_fields":["name","homepage"]
   }
 }

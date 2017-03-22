@@ -1,0 +1,11 @@
+{
+  "_id":"P570",
+  "_fields":["name","lat","long"],
+  "manager":{
+    "_fields":["name","homepage"],
+    "parking":{
+      "_id":"P571",
+      "_fields":["name","lat","long"]
+    }
+  }
+}

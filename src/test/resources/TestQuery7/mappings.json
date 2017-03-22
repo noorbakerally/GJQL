@@ -1,0 +1,17 @@
+{
+  "resourceNamespace":"http://opensensingcity.emse.fr/Parking/resource/",
+  "classNamespace":"http://opensensingcity.emse.fr/ontology/",
+  "prefix":{
+    "osc":"http://opensensingcity.emse.fr/ontology/",
+    "pk":"http://opensensingcity.emse.fr/Parking/resource/",
+    "dc":"http://purl.org/dc/elements/1.1/"
+  },
+  "resourceException":{
+    "name":"dc:title",
+    "lat":"http://www.w3.org/2003/01/geo/wgs84_pos#lat",
+    "long":"http://www.w3.org/2003/01/geo/wgs84_pos#long",
+    "Parking":{
+      "name": "http://www.w3.org/2000/01/rdf-schema#label"
+    }
+  }
+}

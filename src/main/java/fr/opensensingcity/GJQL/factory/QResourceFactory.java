@@ -30,7 +30,19 @@ public class QResourceFactory {
             //if atomic then insert into atomic list
             //else insert as compound object
             while (fields.hasNext()) {
-                simpleQResource.addAtomicFields(fields.next().getAsString());
+                JsonElement currentField = fields.next();
+                if (currentField.isJsonObject()){
+                    JsonObject currentFieldAsJsonObject = currentField.getAsJsonObject();
+                    QResource newQResource = QResourceFactory.loadSimpleQResourceFromJSON(currentFieldAsJsonObject);
+                    simpleQResource.addQResource(newQResource);
+
+                } else {
+                    //for atomic elements
+                    simpleQResource.addAtomicFields(currentField.getAsString());
+                }
+
+
+                
             }
         }
         return simpleQResource;

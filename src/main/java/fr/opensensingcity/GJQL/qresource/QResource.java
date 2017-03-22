@@ -41,8 +41,13 @@ public abstract class QResource {
     public void addAtomicFields(String field){
         atomicFields.add(field);
     }
+    public void addQResource(QResource qResource){
+        qResources.add(qResource);
+    }
     public void setAtomicFields(List<String> atomicFields) {
         this.atomicFields = atomicFields;
     }
     public abstract  String serializeResult(ResultSet results);
+
+
 }
