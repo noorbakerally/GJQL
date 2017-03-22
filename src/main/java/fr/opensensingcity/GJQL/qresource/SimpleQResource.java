@@ -99,6 +99,25 @@ public class SimpleQResource extends QResource {
         bp.add(new Triple(linkNode,predicateLinkNode,mainSubjectNode));
 
         //to add composite here
+        for (String field:getqResources().keySet()){
+            String predicateIRI;
+            if (mapping.getResourceExceptions().containsKey(field)){
+                predicateIRI = mapping.getResourceExceptions().get(field);
+            } else {
+                predicateIRI = mapping.getDefaultClassNamespace() + field;
+            }
+            Node predicateNode = NodeFactory.createURI(predicateIRI);
+            //check if qresource has id
+            Node subjectNode = NodeFactory.createBlankNode();
+            QResource currentQResource = qResources.get(field);
+            if (currentQResource.hasId()){
+                String resourceIRI = mapping.getDefaultResourceNamespace() + getrId();
+                subjectNode = NodeFactory.createURI(resourceIRI);
+            }
+            BasicPattern newBPs = currentQResource.generateBasicPattern(mapping,subjectNode,mainSubjectNode,predicateNode);
+            bp.addAll(newBPs);
+        }
+
 
         return bp;
 

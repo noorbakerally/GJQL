@@ -10,6 +10,7 @@
     "name":"dc:title",
     "lat":"http://www.w3.org/2003/01/geo/wgs84_pos#lat",
     "long":"http://www.w3.org/2003/01/geo/wgs84_pos#long",
-    "Manager":"http://opensensingcity.emse.fr/ontology/managedBy"
+    "Manager":"http://opensensingcity.emse.fr/ontology/managedBy",
+    "Parking":"http://opensensingcity.emse.fr/ontology/manages"
   }
 }
