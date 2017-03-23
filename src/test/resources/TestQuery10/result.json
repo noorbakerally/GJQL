@@ -1,0 +1,9 @@
+{
+  "_id": "P570",
+  "_fields": [
+    "name",
+    "Manager.name"
+  ],
+  "name": "Parking NeyLabel",
+  "Manager.name": "French Ville"
+}

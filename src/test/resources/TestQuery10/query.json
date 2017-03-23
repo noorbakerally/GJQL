@@ -1,0 +1,5 @@
+{
+  "_id":"P570",
+  "_fields":["name","Manager.HomeOffice.name"]
+}
+
