@@ -1,17 +1,30 @@
 {
   "resourceNamespace":"http://opensensingcity.emse.fr/Parking/resource/",
   "classNamespace":"http://opensensingcity.emse.fr/ontology/",
-  "prefix":{
+  "prefixes":{
     "osc":"http://opensensingcity.emse.fr/ontology/",
     "pk":"http://opensensingcity.emse.fr/Parking/resource/",
-    "dc":"http://purl.org/dc/elements/1.1/"
+    "dc":"http://purl.org/dc/elements/1.1/",
+    "geo":"http://www.w3.org/2003/01/geo/wgs84_pos#",
+    "foaf":"http://xmlns.com/foaf/0.1/"
   },
-  "resourceException":{
-    "name":"dc:title",
+  "resourceExceptions":{
+    "homepage":"http://xmlns.com/foaf/0.1/homepage",
+    "name":"http://opensensingcity.emse.fr/ontology/name",
     "lat":"http://www.w3.org/2003/01/geo/wgs84_pos#lat",
     "long":"http://www.w3.org/2003/01/geo/wgs84_pos#long",
+    "Manager":{
+      "_type":"osc:ParkingManger",
+      "Parking":"osc:manages",
+      "HomeOffice":"osc:HomeOffice"
+    },
     "Parking":{
-      "name": "http://www.w3.org/2000/01/rdf-schema#label"
+      "_type":"osc:Parking",
+      "Manager":"osc:managedBy",
+      "name": "rdfs:label"
+    },
+    "HomeOffice":{
+      "_type":"osc:HomeOffice"
     }
   }
 }

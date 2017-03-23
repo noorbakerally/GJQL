@@ -33,7 +33,9 @@ public class MappingFactory {
             Iterator<Map.Entry<String, JsonElement>> reIterator = resourceExceptionsObject.entrySet().iterator();
             while (reIterator.hasNext()){
                 Map.Entry<String, JsonElement> currentPrefix = reIterator.next();
-                simpleMapping.getResourceExceptions().put(currentPrefix.getKey(),currentPrefix.getValue().getAsString());
+                if (currentPrefix.getValue().isJsonPrimitive()){
+                    simpleMapping.getResourceExceptions().put(currentPrefix.getKey(),currentPrefix.getValue().getAsString());
+                }
             }
         }
         return simpleMapping;
