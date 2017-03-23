@@ -2,8 +2,8 @@
   "_id": "P570",
   "_fields": [
     "name",
-    "Manager.name"
+    "Manager.HomeOffice.name"
   ],
   "name": "Parking NeyLabel",
-  "Manager.name": "French Ville"
+  "Manager.HomeOffice.name": "P570 Parking NeyLabel Homeoffice"
 }

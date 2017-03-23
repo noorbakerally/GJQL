@@ -72,7 +72,6 @@ public class SimpleMapping extends Mapping {
                 }
                 int i=0;
                 while (i<fields.size()){
-                    System.out.println(fields.get(i));
                     Node currentField = getNode(fields.get(i));
                     if (i==fields.size()-1){
                         bp.add(new Triple(pBNode, currentField ,getVNode(field,resource))) ;
