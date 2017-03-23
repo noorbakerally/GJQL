@@ -58,17 +58,23 @@ public class SimpleMapping extends Mapping {
         Map<String, QResource> currentQResources = resource.getqResources();
         for (String field:currentQResources.keySet()){
 
-            Node predicateNode = getNode(field);
+           if (field.contains(".")){
+               Node predicateNode = getNode(field);
 
-            //check if qresource has id
-            Node subjectNode = NodeFactory.createBlankNode();
-            QResource currentQResource = currentQResources.get(field);
-            if (currentQResource.hasId()){
-                String resourceIRI = defaultResourceNamespace + resource.getrId();
-                subjectNode = NodeFactory.createURI(resourceIRI);
-            }
-            BasicPattern newBPs = currentQResource.generateBasicPattern(this,subjectNode,mainSubjectNode,predicateNode);
-            bp.addAll(newBPs);
+               //check if qresource has id
+               Node subjectNode = NodeFactory.createBlankNode();
+               QResource currentQResource = currentQResources.get(field);
+               if (currentQResource.hasId()){
+                   String resourceIRI = defaultResourceNamespace + resource.getrId();
+                   subjectNode = NodeFactory.createURI(resourceIRI);
+               }
+               BasicPattern newBPs = currentQResource.generateBasicPattern(this,subjectNode,mainSubjectNode,predicateNode);
+               bp.addAll(newBPs);
+           } else {
+               //create property paths
+
+           }
+
 
 
         }
