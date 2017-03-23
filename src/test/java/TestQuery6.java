@@ -28,9 +28,6 @@ public class TestQuery6 {
     public void testGenerateSPARQLFromJson() throws IOException, URISyntaxException {
         JsonParser parser = new JsonParser();
 
-        System.out.println("#####Test6####");
-
-
         //get mapping representation
         String queryMappings = TestUtils.getFileContentFromResource(this,"mappings.json");
         JsonObject queryMappingObject = parser.parse(queryMappings).getAsJsonObject();
@@ -46,7 +43,7 @@ public class TestQuery6 {
         //generate query
         Query query = simpleMapping.generateSPARQLQuery(resource);
         query.setQueryResultStar(false);
-        System.out.println(query.toString());
+
 
         //generate results from query
         String modelIRI = getClass().getResource("/"+getClass().getSimpleName()).toString()+"/graph.ttl";

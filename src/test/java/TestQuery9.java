@@ -19,7 +19,7 @@ import java.net.URISyntaxException;
 
 import static org.junit.Assert.assertTrue;
 
-public class TestQuery7 {
+public class TestQuery9 {
     String message = "Robert";
 
 

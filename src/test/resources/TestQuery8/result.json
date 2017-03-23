@@ -1,0 +1,10 @@
+{
+  "_id": "P570",
+  "_fields": [
+    "name",
+    "lat",
+    "long"
+  ],
+  "name": "Parking NeyLabel",
+  "Manager.name":"French Ville"
+}
