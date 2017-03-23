@@ -55,7 +55,7 @@ public abstract class QResource {
     public void setAtomicFields(List<String> atomicFields) {
         this.atomicFields = atomicFields;
     }
-    public abstract  String serializeResult(ResultSet results);
+    public abstract  String serializeResult(Object results);
 
     public abstract BasicPattern generateBasicPattern(Mapping mapping, Node subjectNode,Node  linkNode,Node predicateNode);
 

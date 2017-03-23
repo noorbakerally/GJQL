@@ -8,9 +8,11 @@ import org.apache.jena.graph.Triple;
 import org.apache.jena.query.Query;
 import org.apache.jena.query.QuerySolution;
 import org.apache.jena.query.ResultSet;
+import org.apache.jena.query.ResultSetFactory;
 import org.apache.jena.sparql.core.BasicPattern;
 import org.apache.jena.sparql.core.ResultBinding;
 import org.apache.jena.sparql.core.Var;
+import org.apache.jena.sparql.util.ResultSetUtils;
 import org.apache.jena.vocabulary.RDF;
 
 import java.util.ArrayList;
@@ -32,36 +34,58 @@ public class SimpleQResource extends QResource {
         return null;
     }
 
-    public String serializeResult(ResultSet bindings) {
+    public String serializeResult(Object bindings) {
+        JsonParser parser = new JsonParser();
         JsonArray arrResult = new JsonArray();
         JsonObject result = new JsonObject();
 
-        while (bindings.hasNext()){
-            result = new JsonObject();
-            if (hasId()){
-                result.addProperty("_id",rId);
-            }
-
-            if (hasType()){
-                result.addProperty("_type",rType);
-            }
-
-            if (atomicFields.size() > 0) {
-                JsonArray jsonArray = new JsonArray();
-                for (String atomicField:atomicFields){
-                    jsonArray.add(atomicField);
-                }
-                result.add("_fields",jsonArray);
-            }
-
-            QuerySolution binding = bindings.next();
-            for (String atomicField:atomicFields){
-                result.addProperty(atomicField,binding.get(atomicField+getQid()).asLiteral().getLexicalForm());
-            }
-            if (!hasId()){
-                arrResult.add(result);
-            }
+        QuerySolution binding = null;
+        System.out.println("Class:"+bindings.getClass());
+        if (!bindings.getClass().equals(QuerySolution.class)){
+            binding = ((ResultSet) bindings).next();
+        } else {
+            binding = (QuerySolution) bindings;
         }
+
+        result = new JsonObject();
+        if (hasId()){
+            result.addProperty("_id",rId);
+        }
+
+        if (hasType()){
+            result.addProperty("_type",rType);
+        }
+
+        if (atomicFields.size() > 0) {
+            JsonArray jsonArray = new JsonArray();
+            for (String atomicField:atomicFields){
+                jsonArray.add(atomicField);
+            }
+            result.add("_fields",jsonArray);
+        }
+
+
+
+        for (String atomicField:atomicFields){
+            result.addProperty(atomicField,binding.get(atomicField+getQid()).asLiteral().getLexicalForm());
+        }
+
+        //serializing QResources
+
+        /*for (String qResourceKey:qResources.keySet()){
+            QResource currentQResource = qResources.get(qResourceKey);
+            String strQResource = currentQResource.serializeResult(null);
+
+            JsonElement jsonQResource = parser.parse(strQResource);
+            result.add(qResourceKey,jsonQResource);
+        }*/
+
+
+        if (!hasId()){
+            arrResult.add(result);
+        }
+
+
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         if (hasId()) {
             //return result.toString();

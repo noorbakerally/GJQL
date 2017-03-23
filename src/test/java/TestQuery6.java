@@ -12,6 +12,7 @@ import fr.opensensingcity.GJQL.mapping.Mapping;
 import fr.opensensingcity.GJQL.qresource.QResource;
 import org.apache.jena.query.Query;
 import org.apache.jena.query.QueryFactory;
+import org.apache.jena.query.ResultSet;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -49,7 +50,8 @@ public class TestQuery6 {
 
         //generate results from query
         String modelIRI = getClass().getResource("/"+getClass().getSimpleName()).toString()+"/graph.ttl";
-        String result = resource.serializeResult(GraphUtils.executeSPARQL(query,modelIRI));
+        ResultSet queryResults = GraphUtils.executeSPARQL(query, modelIRI);
+        String result = resource.serializeResult(queryResults);
         System.out.println("GEnerated Result:"+result);
 
         /*
