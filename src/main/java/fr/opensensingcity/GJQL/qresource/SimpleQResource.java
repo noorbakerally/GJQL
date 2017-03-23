@@ -40,8 +40,8 @@ public class SimpleQResource extends QResource {
         JsonObject result = new JsonObject();
 
         QuerySolution binding = null;
-        System.out.println("Class:"+bindings.getClass());
-        if (!bindings.getClass().equals(QuerySolution.class)){
+
+        if (!bindings.getClass().equals(ResultBinding.class)){
             binding = ((ResultSet) bindings).next();
         } else {
             binding = (QuerySolution) bindings;

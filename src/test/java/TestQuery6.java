@@ -51,7 +51,10 @@ public class TestQuery6 {
         //generate results from query
         String modelIRI = getClass().getResource("/"+getClass().getSimpleName()).toString()+"/graph.ttl";
         ResultSet queryResults = GraphUtils.executeSPARQL(query, modelIRI);
+
         String result = resource.serializeResult(queryResults);
+        
+
         System.out.println("GEnerated Result:"+result);
 
         /*
