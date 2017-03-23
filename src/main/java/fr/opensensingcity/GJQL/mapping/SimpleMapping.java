@@ -57,13 +57,8 @@ public class SimpleMapping extends Mapping {
         //generating the query graph patterns for every composite fields
         Map<String, QResource> currentQResources = resource.getqResources();
         for (String field:currentQResources.keySet()){
-            String predicateIRI;
-            if (resourceExceptions.containsKey(field)){
-                predicateIRI = resourceExceptions.get(field);
-            } else {
-                predicateIRI = defaultClassNamespace + field;
-            }
-            Node predicateNode = NodeFactory.createURI(predicateIRI);
+
+            Node predicateNode = getNode(field);
 
             //check if qresource has id
             Node subjectNode = NodeFactory.createBlankNode();
@@ -87,4 +82,16 @@ public class SimpleMapping extends Mapping {
         }
         return q;
     }
+    Node getNode(String field){
+        String predicateIRI;
+        if (resourceExceptions.containsKey(field)){
+            predicateIRI = resourceExceptions.get(field);
+        } else {
+            predicateIRI = defaultClassNamespace + field;
+        }
+        Node predicateNode = NodeFactory.createURI(predicateIRI);
+        return predicateNode;
+
+}
+
 }
