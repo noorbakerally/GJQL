@@ -68,7 +68,7 @@ public class SimpleQResource extends QResource {
 
 
         for (String atomicField:atomicFields){
-            result.addProperty(atomicField,binding.get(atomicField+getQid()).asLiteral().getLexicalForm());
+            result.addProperty(atomicField,binding.get(getVName(atomicField)).asLiteral().getLexicalForm());
         }
 
         //serializing QResources
@@ -102,6 +102,13 @@ public class SimpleQResource extends QResource {
         //return arrResult.toString();
         return gson.toJson(arrResult);
 
+    }
+
+    String getVName(String field){
+        if (field.contains(".")){
+            field = field.replace(".","");
+        }
+        return (field+getQid());
     }
 
     public BasicPattern generateBasicPattern(Mapping mapping, Node mainSubjectNode, Node linkNode, Node predicateLinkNode) {

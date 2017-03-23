@@ -9,10 +9,13 @@ import org.apache.jena.sparql.algebra.Op;
 import org.apache.jena.sparql.algebra.OpAsQuery;
 import org.apache.jena.sparql.algebra.op.OpBGP;
 import org.apache.jena.sparql.core.BasicPattern;
+import org.apache.jena.sparql.core.TriplePath;
 import org.apache.jena.sparql.core.Var;
+import org.apache.jena.sparql.path.Path;
+import org.apache.jena.sparql.path.PathFactory;
 import org.apache.jena.vocabulary.RDF;
 
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by bakerally on 3/19/17.
@@ -43,22 +46,46 @@ public class SimpleMapping extends Mapping {
 
         //generating a triple pattern for every atomic fields
         for (String field:resource.getAtomicFields()){
-            String predicateIRI;
-            if (resourceExceptions.containsKey(field)){
-                predicateIRI = resourceExceptions.get(field);
+
+            if (!field.contains(".")){
+                String predicateIRI;
+                if (resourceExceptions.containsKey(field)){
+                    predicateIRI = resourceExceptions.get(field);
+                } else {
+                    predicateIRI = defaultClassNamespace + field;
+                }
+                Node predicateNode = NodeFactory.createURI(predicateIRI);
+                Var variableNode = Var.alloc(field+resource.getQid());
+                bp.add(new Triple(mainSubjectNode, predicateNode ,variableNode)) ;
             } else {
-                predicateIRI = defaultClassNamespace + field;
+                //create property path
+                List<String> fields = new LinkedList<String>(Arrays.asList(field.split("\\.")));
+
+
+                String iri1 = fields.remove(0);
+                Node p1  = getNode(iri1);
+                Node pBNode = NodeFactory.createBlankNode();
+                bp.add(new Triple(mainSubjectNode, p1 ,pBNode)) ;
+
+                for (String currentField:fields){
+                    Node px  = getNode(currentField);
+                }
+                int i=0;
+                while (i<fields.size()){
+                    Node currentField = getNode(fields.get(i));
+                    if (i==fields.size()-1){
+                        bp.add(new Triple(pBNode, currentField ,getVNode(field,resource))) ;
+                    } else {
+                        new Triple(pBNode,currentField,pBNode = NodeFactory.createBlankNode());
+                    }
+                    i++;
+                }
             }
-            Node predicateNode = NodeFactory.createURI(predicateIRI);
-            Var variableNode = Var.alloc(field+resource.getQid());
-            bp.add(new Triple(mainSubjectNode, predicateNode ,variableNode)) ;
         }
 
         //generating the query graph patterns for every composite fields
         Map<String, QResource> currentQResources = resource.getqResources();
         for (String field:currentQResources.keySet()){
-
-           if (field.contains(".")){
                Node predicateNode = getNode(field);
 
                //check if qresource has id
@@ -70,18 +97,13 @@ public class SimpleMapping extends Mapping {
                }
                BasicPattern newBPs = currentQResource.generateBasicPattern(this,subjectNode,mainSubjectNode,predicateNode);
                bp.addAll(newBPs);
-           } else {
-               //create property paths
-
-           }
-
-
 
         }
 
         Op op = new OpBGP(bp) ;
 
         Query q = OpAsQuery.asQuery(op);
+
 
         for (String prefix:prefixes.keySet()){
             q.setPrefix(prefix,prefixes.get(prefix));
@@ -97,7 +119,13 @@ public class SimpleMapping extends Mapping {
         }
         Node predicateNode = NodeFactory.createURI(predicateIRI);
         return predicateNode;
+    }
 
-}
+    Node getVNode(String field,QResource qResource){
+        if (field.contains(".")){
+            field = field.replace(".","");
+        }
+        return Var.alloc(field+qResource.getQid());
+    }
 
 }
