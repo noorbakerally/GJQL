@@ -2,9 +2,8 @@
   "_id": "P570",
   "_fields": [
     "name",
-    "lat",
-    "long"
+    "Manager.name"
   ],
   "name": "Parking NeyLabel",
-  "Manager.name":"French Ville"
+  "Manager.name": "French Ville"
 }
