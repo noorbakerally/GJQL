@@ -62,11 +62,13 @@ public class SimpleQResource extends QResource {
                 arrResult.add(result);
             }
         }
-
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
         if (hasId()) {
-            return result.toString();
+            //return result.toString();
+            return gson.toJson(result);
         }
-        return arrResult.toString();
+        //return arrResult.toString();
+        return gson.toJson(arrResult);
 
     }
 
