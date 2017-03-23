@@ -53,7 +53,7 @@ public class TestQuery6 {
         ResultSet queryResults = GraphUtils.executeSPARQL(query, modelIRI);
 
         String result = resource.serializeResult(queryResults);
-        
+
 
         System.out.println("GEnerated Result:"+result);
 
