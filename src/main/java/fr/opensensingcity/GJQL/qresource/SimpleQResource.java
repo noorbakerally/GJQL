@@ -40,8 +40,9 @@ public class SimpleQResource extends QResource {
         JsonObject result = new JsonObject();
 
         QuerySolution binding = null;
-
+        ResultSet currentResultSet=null;
         if (!bindings.getClass().equals(ResultBinding.class)){
+            currentResultSet = ((ResultSet) bindings);
             binding = ((ResultSet) bindings).next();
         } else {
             binding = (QuerySolution) bindings;
@@ -82,6 +83,14 @@ public class SimpleQResource extends QResource {
 
         if (!hasId()){
             arrResult.add(result);
+            if (currentResultSet!=null){
+                if (currentResultSet.hasNext()){
+                    System.out.println("Enters..");
+                    String tempResult = serializeResult(currentResultSet);
+                    JsonElement queryObject = parser.parse(tempResult);
+                    arrResult.add(queryObject);
+                }
+            }
         }
 
 
