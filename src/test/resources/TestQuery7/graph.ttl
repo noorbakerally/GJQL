@@ -17,14 +17,14 @@
 
 
 pk:M1 a osc:ParkingManager;
-    rdfs:label "French Ville";
+    osc:name "French Ville";
     foaf:homepage "https://www.grandlyon.com/";
     osc:manages pk:P570,pk:P571 .
 
 pk:P570
         a                          osc:Parking ;
          osc:managedBy pk:M1;
-        osc:name                    "Parking Ney" ;
+        osc:name                    "Parking NeyLabel" ;
         rdfs:label                 "Parking NeyLabel" ;
         pk:nbBicycleParkingPlaces  0 ;
         pk:nbParkingSpaces         "160" ;
@@ -35,8 +35,8 @@ pk:P570
 pk:P571
          a                          osc:Parking ;
           osc:managedBy pk:M1;
-         osc:name                    "Parking Ney" ;
-         rdfs:label                 "Parking Ney" ;
+         osc:name                    "Parking Ney 571" ;
+         rdfs:label                 "Parking Ney 571" ;
          pk:nbBicycleParkingPlaces  0 ;
          pk:nbParkingSpaces         "160" ;
          geo:lat                    45.770088718787825e0 ;

@@ -11,7 +11,6 @@ import fr.opensensingcity.GJQL.factory.QResourceFactory;
 import fr.opensensingcity.GJQL.mapping.Mapping;
 import fr.opensensingcity.GJQL.qresource.QResource;
 import org.apache.jena.query.Query;
-import org.apache.jena.query.QueryFactory;
 import org.apache.jena.query.ResultSet;
 import org.junit.Test;
 
@@ -20,15 +19,13 @@ import java.net.URISyntaxException;
 
 import static org.junit.Assert.assertTrue;
 
-public class TestQuery6 {
+public class TestQuery7 {
     String message = "Robert";
 
 
     @Test
     public void testGenerateSPARQLFromJson() throws IOException, URISyntaxException {
         JsonParser parser = new JsonParser();
-
-        System.out.println("#####Test6####");
 
 
         //get mapping representation
@@ -54,7 +51,8 @@ public class TestQuery6 {
 
         //serialize results from the query
         String result = resource.serializeResult(queryResults);
-        JsonElement generatedResultObject = parser.parse(result);
+        System.out.println(result);
+        /*JsonElement generatedResultObject = parser.parse(result);
 
         //load original result
         String originalResult = TestUtils.getFileContentFromResource(this,"result.json");
@@ -64,7 +62,7 @@ public class TestQuery6 {
         //System.out.println(originalResultObject);
 
         //check generated result vs original result
-        assertTrue(generatedResultObject.equals(originalResultObject));
+        assertTrue(generatedResultObject.equals(originalResultObject));*/
 
     }
 }
