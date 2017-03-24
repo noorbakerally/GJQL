@@ -99,7 +99,7 @@ public abstract class Mapping {
 
     //utility methods
     public Node getNode(String type,String field){
-        System.out.println("Generating Predicate:"+field+ " for "+type);
+        //System.out.println("Generating Predicate:"+field+ " for "+type);
         String predicateIRI;
         if (type!=null){
             if (getClassResourceExceptions().containsKey(type)){

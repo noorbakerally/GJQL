@@ -85,7 +85,6 @@ public class SimpleQResource extends QResource {
             arrResult.add(result);
             if (currentResultSet!=null){
                 if (currentResultSet.hasNext()){
-                    System.out.println("Enters..");
                     String tempResult = serializeResult(currentResultSet);
                     JsonElement queryObject = parser.parse(tempResult);
                     arrResult.add(queryObject);
@@ -130,7 +129,6 @@ public class SimpleQResource extends QResource {
 
         //generating a triple pattern for every atomic fields
         for (String field:getAtomicFields()){
-            System.out.println("field:"+field);
             Node predicateNode = mapping.getNode(getrType(),field);
             bp.add(new Triple(mainSubjectNode, predicateNode ,mapping.getVNode(field,this))) ;
         }

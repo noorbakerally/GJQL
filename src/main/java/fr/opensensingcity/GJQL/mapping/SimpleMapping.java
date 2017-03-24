@@ -87,7 +87,7 @@ public class SimpleMapping extends Mapping {
         //generating the query graph patterns for every composite fields
         Map<String, QResource> currentQResources = resource.getqResources();
         for (String field:currentQResources.keySet()){
-            LOGGER.info("Composite Resource:"+field);
+            //LOGGER.info("Composite Resource:"+field);
             QResource currentQResource = currentQResources.get(field);
             currentQResource.setrType(field);
             Node predicateNode = getNode(resource.getrType(),field);
