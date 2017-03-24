@@ -85,10 +85,14 @@ public abstract class Mapping {
     }
 
     public String getResourceIRI(String field){
-        if (field.contains(":")){
+        if (field.contains(":") && !field.contains("://")){
             String [] prefixParts = field.split(":");
             return prefixes.get(prefixParts[0])+prefixParts[1];
-        } else {
+        }
+        else if (field.contains("://")){
+            return field;
+        }
+        else {
             return resourceExceptions.get(field);
         }
     }
@@ -99,9 +103,9 @@ public abstract class Mapping {
         String predicateIRI;
         if (type!=null){
             if (getClassResourceExceptions().containsKey(type)){
-                Map<String, String> classPrefixes = getClassResourceExceptions().get(type);
-                if (classPrefixes.containsKey(field)){
-                    return NodeFactory.createURI(getResourceIRI(classPrefixes.get(field)));
+                Map<String, String> classResourceExceptionIRIs = getClassResourceExceptions().get(type);
+                if (classResourceExceptionIRIs.containsKey(field)){
+                    return NodeFactory.createURI(getResourceIRI(classResourceExceptionIRIs.get(field)));
                 }
             }
         }

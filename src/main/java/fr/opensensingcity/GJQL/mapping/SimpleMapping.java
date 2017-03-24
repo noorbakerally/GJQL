@@ -62,16 +62,16 @@ public class SimpleMapping extends Mapping {
                 List<String> fields = new LinkedList<String>(Arrays.asList(field.split("\\.")));
 
                 //treat the first element and connect it to main node
-                String iri1 = fields.remove(0);
+                String iri1 = fields.get(0);
                 Node p1  = getNode(resource.getrType(),iri1);
                 Node pBNode = NodeFactory.createBlankNode();
                 bp.add(new Triple(mainSubjectNode, p1 ,pBNode)) ;
 
                 //treat remaining elements and create the chain
                 //with everything intermediary being blank nodes
-                int i=0;
+                int i=1;
                 while (i<fields.size()){
-                    Node currentField = getNode(resource.getrType(),fields.get(i));
+                    Node currentField = getNode(fields.get(i-1),fields.get(i));
                     if (i==fields.size()-1){
                         bp.add(new Triple(pBNode, currentField ,getVNode(field,resource))) ;
                     } else {

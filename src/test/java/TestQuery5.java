@@ -44,7 +44,7 @@ public class TestQuery5 {
         //generate query
         Query query = simpleMapping.generateSPARQLQuery(resource);
         query.setQueryResultStar(false);
-        
+
         //generate results from query
         String modelIRI = getClass().getResource("/"+getClass().getSimpleName()).toString()+"/graph.ttl";
         ResultSet queryResults = GraphUtils.executeSPARQL(query, modelIRI);

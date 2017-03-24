@@ -43,13 +43,15 @@ public class TestQuery7 {
         //generate query
         Query query = simpleMapping.generateSPARQLQuery(resource);
         query.setQueryResultStar(false);
-
+        //System.out.println(query.serialize());
         //generate results from query
         String modelIRI = getClass().getResource("/"+getClass().getSimpleName()).toString()+"/graph.ttl";
         ResultSet queryResults = GraphUtils.executeSPARQL(query, modelIRI);
 
         //serialize results from the query
         String result = resource.serializeResult(queryResults);
+        //System.out.println(result);
+
         JsonElement generatedResultObject = parser.parse(result);
 
         //load original result

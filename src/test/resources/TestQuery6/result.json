@@ -1,5 +1,6 @@
 {
   "_id": "P570",
+  "_type": "Parking",
   "_fields": [
     "name",
     "lat",
@@ -8,7 +9,7 @@
   "name": "Parking Ney",
   "lat": "45.770088718787825e0",
   "long": "4.855142822219495e0",
-  "Manager": [
+  "ParkingManager": [
     {
       "_type": "ParkingManager",
       "_fields": [
