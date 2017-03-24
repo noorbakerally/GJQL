@@ -43,7 +43,7 @@ public class TestQuery1  {
         Mapping simpleMapping = MappingFactory.generateSimpleMappingFromJSON(queryMappingObject);
 
         //generate query
-        BasicPattern expression = resource.generateSPARQLQuery(simpleMapping);
+        BasicPattern expression = resource.generateExpression(simpleMapping,null,null,null);
         Op op = new OpBGP(expression) ;
         Query query = OpAsQuery.asQuery(op);
         query.setQueryResultStar(false);

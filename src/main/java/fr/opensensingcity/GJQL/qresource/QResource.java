@@ -56,7 +56,7 @@ public abstract class QResource {
     }
     public abstract  String serializeResult(Object results);
 
-    public abstract BasicPattern generateBasicPattern(Mapping mapping, Node subjectNode,Node  linkNode,Node predicateNode);
+    public abstract BasicPattern generateExpression(Mapping mapping, Node subjectNode,Node  linkNode,Node predicateNode);
 
     public Map<String, QResource> getqResources() {
         return qResources;
@@ -69,7 +69,6 @@ public abstract class QResource {
         return qid;
     }
 
-    public abstract BasicPattern generateSPARQLQuery(Mapping mapping);
 
     public void setQid(String qid) {
         this.qid = qid;

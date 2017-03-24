@@ -31,7 +31,7 @@ public class SimpleQResource extends QResource {
         qid = String.valueOf(Math.abs(random.nextLong()));
     }
 
-    public BasicPattern generateSPARQLQuery(Mapping mapping) {
+    public BasicPattern generateExpression(Mapping mapping, Node subjectNode,Node  linkNode,Node predicateNode) {
         Node mainSubjectNode = NodeFactory.createBlankNode();
         BasicPattern bp = new BasicPattern() ;
 
@@ -53,7 +53,7 @@ public class SimpleQResource extends QResource {
 
             if (!field.contains(".")){
                 //i.e. purely atomic field
-                Node predicateNode =  mapping.getNode(getrType(),field);
+                predicateNode =  mapping.getNode(getrType(),field);
                 Var variableNode = Var.alloc(field+getQid());
                 bp.add(new Triple(mainSubjectNode, predicateNode ,variableNode)) ;
 
@@ -90,63 +90,23 @@ public class SimpleQResource extends QResource {
             //LOGGER.info("Composite Resource:"+field);
             QResource currentQResource = currentQResources.get(field);
             currentQResource.setrType(field);
-            Node predicateNode = mapping.getNode(getrType(),field);
+            predicateNode = mapping.getNode(getrType(),field);
 
             //check if qresource has id
-            Node subjectNode = NodeFactory.createBlankNode();
+            subjectNode = NodeFactory.createBlankNode();
 
             if (currentQResource.hasId()){
                 String resourceIRI = mapping.getDefaultResourceNamespace() + getrId();
                 subjectNode = NodeFactory.createURI(resourceIRI);
             }
-            BasicPattern newBPs = currentQResource.generateBasicPattern(mapping,subjectNode,mainSubjectNode,predicateNode);
+            BasicPattern newBPs = currentQResource.generateExpression(mapping,subjectNode,mainSubjectNode,predicateNode);
             bp.addAll(newBPs);
         }
         return bp;
 
     }
 
-    public BasicPattern generateBasicPattern(Mapping mapping, Node mainSubjectNode, Node linkNode, Node predicateLinkNode) {
 
-        BasicPattern bp = new BasicPattern() ;
-
-        //creating an identified subject if there is an Id
-        if (hasId() && mainSubjectNode !=null){
-            String resourceIRI = mapping.getDefaultResourceNamespace() + getrId();
-            mainSubjectNode = NodeFactory.createURI(resourceIRI);
-        }
-
-        //creating a type for the resource
-        if (hasType()){
-            String mainTypeIRI = mapping.getDefaultClassNamespace() + getrType();
-            Node mainSubjectType = NodeFactory.createURI(mainTypeIRI);
-            bp.add(new Triple(mainSubjectNode, RDF.Nodes.type , mainSubjectType)) ;
-        }
-
-        //generating a triple pattern for every atomic fields
-        for (String field:getAtomicFields()){
-            Node predicateNode = mapping.getNode(getrType(),field);
-            bp.add(new Triple(mainSubjectNode, predicateNode ,mapping.getVNode(field,this))) ;
-        }
-        bp.add(new Triple(linkNode,predicateLinkNode,mainSubjectNode));
-
-        //to add composite here
-        for (String field:getqResources().keySet()){
-            QResource currentQResource = qResources.get(field);
-            currentQResource.setrType(field);
-            Node predicateNode = mapping.getNode(getrType(),field);
-            //check if qresource has id
-            Node subjectNode = NodeFactory.createBlankNode();
-
-            if (currentQResource.hasId()){
-                String resourceIRI = mapping.getDefaultResourceNamespace() + getrId();
-                subjectNode = NodeFactory.createURI(resourceIRI);
-            }
-            BasicPattern newBPs = currentQResource.generateBasicPattern(mapping,subjectNode,mainSubjectNode,predicateNode);
-            bp.addAll(newBPs);
-        }
-        return bp;
-    }
 
     public String serializeResult(Object bindings) {
         JsonParser parser = new JsonParser();
