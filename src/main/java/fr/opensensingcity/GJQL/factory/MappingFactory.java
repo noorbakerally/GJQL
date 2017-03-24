@@ -5,6 +5,7 @@ import com.google.gson.JsonObject;
 import fr.opensensingcity.GJQL.mapping.Mapping;
 import fr.opensensingcity.GJQL.mapping.SimpleMapping;
 
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
@@ -35,9 +36,21 @@ public class MappingFactory {
                 Map.Entry<String, JsonElement> currentPrefix = reIterator.next();
                 if (currentPrefix.getValue().isJsonPrimitive()){
                     simpleMapping.getResourceExceptions().put(currentPrefix.getKey(),currentPrefix.getValue().getAsString());
+                } else {
+                    JsonObject classPrefixes = currentPrefix.getValue().getAsJsonObject();
+                    Iterator<Map.Entry<String, JsonElement>> classPrefix = classPrefixes.entrySet().iterator();
+                    Map <String,String> currentClassPrefixMap = new HashMap<String, String>();
+                    while (classPrefix.hasNext()){
+                        Map.Entry<String, JsonElement> currentPrefixEntry = classPrefix.next();
+                        currentClassPrefixMap.put(currentPrefixEntry.getKey(),
+                                currentPrefixEntry.getValue().getAsString());
+                    }
+                    simpleMapping.getClassResourceExceptions().put(currentPrefix.getKey(),
+                            currentClassPrefixMap);
                 }
             }
         }
+
         return simpleMapping;
     }
 }

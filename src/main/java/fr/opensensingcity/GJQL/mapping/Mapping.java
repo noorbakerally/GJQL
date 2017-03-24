@@ -14,10 +14,12 @@ public abstract class Mapping {
     String defaultResourceNamespace;
     Map<String,String> prefixes;
     Map <String,String> resourceExceptions;
+    Map <String, Map <String,String>> classResourceExceptions;
 
     public  Mapping(){
         prefixes = new HashMap<String, String>();
         resourceExceptions = new HashMap<String, String>();
+        classResourceExceptions = new HashMap<String, Map<String, String>>();
     }
 
     public String getDefaultClassNamespace() {
@@ -63,4 +65,11 @@ public abstract class Mapping {
 
     public abstract Query generateSPARQLQuery(QResource resource);
 
+    public Map<String, Map<String, String>> getClassResourceExceptions() {
+        return classResourceExceptions;
+    }
+
+    public void setClassResourceExceptions(Map<String, Map<String, String>> classResourceExceptions) {
+        this.classResourceExceptions = classResourceExceptions;
+    }
 }

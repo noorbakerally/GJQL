@@ -34,6 +34,7 @@ public class TestQuery5 {
         Mapping simpleMapping = MappingFactory.generateSimpleMappingFromJSON(queryMappingObject);
 
 
+
         //get resource representation
         String queryJSON =TestUtils.getFileContentFromResource(this,"query.json");
         JsonObject queryObject = parser.parse(queryJSON).getAsJsonObject();
@@ -43,10 +44,10 @@ public class TestQuery5 {
         //generate query
         Query query = simpleMapping.generateSPARQLQuery(resource);
         query.setQueryResultStar(false);
-
         System.out.println(query.serialize());
+        /*
 
-       /* //generate results from query
+        //generate results from query
         String modelIRI = getClass().getResource("/"+getClass().getSimpleName()).toString()+"/graph.ttl";
         ResultSet queryResults = GraphUtils.executeSPARQL(query, modelIRI);
 
