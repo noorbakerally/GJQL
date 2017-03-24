@@ -1,0 +1,33 @@
+@base          <http://example.org/> .
+@prefix dt:    <http://opensensingcity.emse.fr/datatypes/> .
+@prefix geo:   <http://www.w3.org/2003/01/geo/wgs84_pos#> .
+@prefix ex:    <http://example.org/> .
+@prefix shw:   <http://paul.staroch.name/thesis/SmartHomeWeather.owl#> .
+@prefix wo:    <http://opensensingcity.emse.fr/ontologies/weather/> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix fn:    <http://w3id.org/sparql-generate/fn/> .
+@prefix iter:  <http://w3id.org/sparql-generate/iter/> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix pk:    <http://opensensingcity.emse.fr/Parking/resource/> .
+@prefix aqo:   <http://opensensingcity.emse.fr/ontologies/airQuality/> .
+@prefix dc:    <http://purl.org/dc/elements/1.1/> .
+@prefix ts:    <http://opensensingcity.emse.fr/ontologies/tempstatus> .
+@prefix osc:   <http://opensensingcity.emse.fr/ontology/> .
+
+pk:P570
+        a                          osc:Parking ;
+        osc:name                    "Parking Ney" ;
+        rdfs:label                 "Parking Ney" ;
+        pk:nbBicycleParkingPlaces  0 ;
+        pk:nbParkingSpaces         "160" ;
+        geo:lat                    45.770088718787825e0 ;
+        geo:long                   4.855142822219495e0 .
+
+pk:P571
+         a                          osc:Parking ;
+         osc:name                    "Parking Ney" ;
+         rdfs:label                 "Parking Ney" ;
+         pk:nbBicycleParkingPlaces  0 ;
+         pk:nbParkingSpaces         "160" ;
+         geo:lat                    45.770088718787825e0 ;
+         geo:long                   4.855142822219495e0 .
