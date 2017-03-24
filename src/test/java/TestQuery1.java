@@ -15,10 +15,10 @@ import org.apache.jena.sparql.algebra.OpAsQuery;
 import org.apache.jena.sparql.algebra.op.OpBGP;
 import org.apache.jena.sparql.core.BasicPattern;
 import org.junit.Test;
+import testutils.TestUtils;
 
 import java.io.*;
 import java.net.URISyntaxException;
-import java.net.URL;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -32,7 +32,7 @@ public class TestQuery1  {
         JsonParser parser = new JsonParser();
 
         //get resource representation
-        String queryJSON =TestUtils.getFileContentFromResource(this,"query.json");
+        String queryJSON = TestUtils.getFileContentFromResource(this,"query.json");
         JsonObject queryObject = parser.parse(queryJSON).getAsJsonObject();
         QResource resource = QResourceFactory.
                 loadSimpleQResourceFromJSON(queryObject);

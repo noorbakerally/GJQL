@@ -17,6 +17,7 @@ import org.apache.jena.sparql.algebra.OpAsQuery;
 import org.apache.jena.sparql.algebra.op.OpBGP;
 import org.apache.jena.sparql.core.BasicPattern;
 import org.junit.Test;
+import testutils.TestUtils;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -32,7 +33,7 @@ public class TestQuery4 {
         JsonParser parser = new JsonParser();
 
         //get resource representation
-        String queryJSON =TestUtils.getFileContentFromResource(this,"query.json");
+        String queryJSON = TestUtils.getFileContentFromResource(this,"query.json");
         JsonObject queryObject = parser.parse(queryJSON).getAsJsonObject();
         QResource resource = QResourceFactory.
                 loadSimpleQResourceFromJSON(queryObject);
