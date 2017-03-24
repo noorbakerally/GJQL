@@ -48,7 +48,13 @@ public class TestQuery11 {
         Query query = OpAsQuery.asQuery(op);
         query.setQueryResultStar(false);
 
-        //System.out.println(query.serialize());
+        for (String prefix:simpleMapping.getPrefixes().keySet()){
+            query.setPrefix(prefix,simpleMapping.getPrefixes().get(prefix));
+        }
+
+        System.out.println(query.serialize());
+
+        /*//System.out.println(query.serialize());
 
         String oqueryStr  = TestUtils.getFileContentFromResource(this,"query.rq");
         Query originalQuery = QueryFactory.create(oqueryStr);
@@ -63,10 +69,10 @@ public class TestQuery11 {
         String originalResult = TestUtils.getFileContentFromResource(this,"result.json");
         JsonObject originalResultObject = parser.parse(originalResult).getAsJsonObject();
 
-       /* System.out.println(generatedResultObject);
-        System.out.println(originalResultObject);*/
+       *//* System.out.println(generatedResultObject);
+        System.out.println(originalResultObject);*//*
 
 
-        assertTrue(generatedResultObject.equals(originalResultObject));
+        assertTrue(generatedResultObject.equals(originalResultObject));*/
     }
 }
