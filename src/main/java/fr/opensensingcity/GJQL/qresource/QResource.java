@@ -23,7 +23,6 @@ public abstract class QResource {
     List<String> atomicFields;
     Map<String, QResource> qResources;
 
-    public abstract Query generateSPARQL(Mapping mapping);
 
     public String getrId() {
         return rId;
@@ -69,7 +68,9 @@ public abstract class QResource {
     public String getQid() {
         return qid;
     }
+
     public abstract Query generateSPARQLQuery(Mapping mapping);
+
     public void setQid(String qid) {
         this.qid = qid;
     }

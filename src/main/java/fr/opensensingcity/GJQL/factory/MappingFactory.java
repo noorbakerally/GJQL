@@ -20,6 +20,7 @@ public class MappingFactory {
         simpleMapping.setDefaultClassNamespace(mappingJsonObject.get("classNamespace").getAsString());
 
 
+        //create prefix map from mapping file
         if (mappingJsonObject.has("prefixes")){
             JsonObject prefixObject = mappingJsonObject.get("prefixes").getAsJsonObject();
             Iterator<Map.Entry<String, JsonElement>> prefixIterator = prefixObject.entrySet().iterator();
@@ -29,14 +30,19 @@ public class MappingFactory {
             }
         }
 
+        //adding all resource exceptions
+        //whether general or for class exceptions
         if (mappingJsonObject.has("resourceExceptions")){
             JsonObject resourceExceptionsObject = mappingJsonObject.get("resourceExceptions").getAsJsonObject();
             Iterator<Map.Entry<String, JsonElement>> reIterator = resourceExceptionsObject.entrySet().iterator();
             while (reIterator.hasNext()){
                 Map.Entry<String, JsonElement> currentPrefix = reIterator.next();
+
+                //general prefixes
                 if (currentPrefix.getValue().isJsonPrimitive()){
                     simpleMapping.getResourceExceptions().put(currentPrefix.getKey(),currentPrefix.getValue().getAsString());
                 } else {
+                    //class specific prefixes
                     JsonObject classPrefixes = currentPrefix.getValue().getAsJsonObject();
                     Iterator<Map.Entry<String, JsonElement>> classPrefix = classPrefixes.entrySet().iterator();
                     Map <String,String> currentClassPrefixMap = new HashMap<String, String>();

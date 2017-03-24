@@ -30,9 +30,6 @@ public class SimpleQResource extends QResource {
         Random random = new Random();
         qid = String.valueOf(Math.abs(random.nextLong()));
     }
-    public Query generateSPARQL(Mapping mapping) {
-        return null;
-    }
 
     public Query generateSPARQLQuery(Mapping mapping) {
 
