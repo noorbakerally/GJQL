@@ -41,7 +41,7 @@ public class TestQuery8 {
 
 
         //generate query
-        Query query = simpleMapping.generateSPARQLQuery(resource);
+        Query query = resource.generateSPARQLQuery(simpleMapping);
         query.setQueryResultStar(false);
 
         //generate results from query

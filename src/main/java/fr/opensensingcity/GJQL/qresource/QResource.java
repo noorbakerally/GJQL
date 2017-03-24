@@ -69,7 +69,7 @@ public abstract class QResource {
     public String getQid() {
         return qid;
     }
-
+    public abstract Query generateSPARQLQuery(Mapping mapping);
     public void setQid(String qid) {
         this.qid = qid;
     }

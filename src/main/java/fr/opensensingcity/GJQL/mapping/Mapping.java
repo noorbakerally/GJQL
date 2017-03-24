@@ -68,7 +68,7 @@ public abstract class Mapping {
         this.resourceExceptions = resourceExceptions;
     }
 
-    public abstract Query generateSPARQLQuery(QResource resource);
+
 
     public Map<String, Map<String, String>> getClassResourceExceptions() {
         return classResourceExceptions;
@@ -118,4 +118,6 @@ public abstract class Mapping {
         Node predicateNode = NodeFactory.createURI(predicateIRI);
         return predicateNode;
     }
+
+
 }
