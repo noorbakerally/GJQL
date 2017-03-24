@@ -10,6 +10,10 @@ import fr.opensensingcity.GJQL.qresource.QResource;
 import fr.opensensingcity.GJQL.mapping.Mapping;
 import org.apache.jena.query.Query;
 import org.apache.jena.query.QueryFactory;
+import org.apache.jena.sparql.algebra.Op;
+import org.apache.jena.sparql.algebra.OpAsQuery;
+import org.apache.jena.sparql.algebra.op.OpBGP;
+import org.apache.jena.sparql.core.BasicPattern;
 import org.junit.Test;
 
 import java.io.*;
@@ -39,8 +43,11 @@ public class TestQuery1  {
         Mapping simpleMapping = MappingFactory.generateSimpleMappingFromJSON(queryMappingObject);
 
         //generate query
-        Query query = resource.generateSPARQLQuery(simpleMapping);
+        BasicPattern expression = resource.generateSPARQLQuery(simpleMapping);
+        Op op = new OpBGP(expression) ;
+        Query query = OpAsQuery.asQuery(op);
         query.setQueryResultStar(false);
+
         //System.out.println(query.serialize());
 
         String oqueryStr  = TestUtils.getFileContentFromResource(this,"query.rq");

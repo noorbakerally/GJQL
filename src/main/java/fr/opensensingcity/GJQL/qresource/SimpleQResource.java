@@ -31,7 +31,7 @@ public class SimpleQResource extends QResource {
         qid = String.valueOf(Math.abs(random.nextLong()));
     }
 
-    public Query generateSPARQLQuery(Mapping mapping) {
+    public BasicPattern generateSPARQLQuery(Mapping mapping) {
         Node mainSubjectNode = NodeFactory.createBlankNode();
         BasicPattern bp = new BasicPattern() ;
 
@@ -102,14 +102,8 @@ public class SimpleQResource extends QResource {
             BasicPattern newBPs = currentQResource.generateBasicPattern(mapping,subjectNode,mainSubjectNode,predicateNode);
             bp.addAll(newBPs);
         }
+        return bp;
 
-        Op op = new OpBGP(bp) ;
-        Query q = OpAsQuery.asQuery(op);
-
-        for (String prefix: mapping.getPrefixes().keySet()){
-            q.setPrefix(prefix,mapping.getPrefixes().get(prefix));
-        }
-        return q;
     }
 
     public BasicPattern generateBasicPattern(Mapping mapping, Node mainSubjectNode, Node linkNode, Node predicateLinkNode) {
