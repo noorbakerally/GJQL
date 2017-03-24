@@ -48,31 +48,27 @@ public class SimpleMapping extends Mapping {
         for (String field:resource.getAtomicFields()){
 
             if (!field.contains(".")){
-                String predicateIRI;
-                if (resourceExceptions.containsKey(field)){
-                    predicateIRI = resourceExceptions.get(field);
-                } else {
-                    predicateIRI = defaultClassNamespace + field;
-                }
-                Node predicateNode = NodeFactory.createURI(predicateIRI);
+                //i.e. purely atomic field
+                Node predicateNode = getNode(null,field);
                 Var variableNode = Var.alloc(field+resource.getQid());
                 bp.add(new Triple(mainSubjectNode, predicateNode ,variableNode)) ;
             } else {
                 //create property path
+
+                //split fields to get all parts involved
                 List<String> fields = new LinkedList<String>(Arrays.asList(field.split("\\.")));
 
-
+                //treat the first element and connect it to main node
                 String iri1 = fields.remove(0);
-                Node p1  = getNode(iri1);
+                Node p1  = getNode(null,iri1);
                 Node pBNode = NodeFactory.createBlankNode();
                 bp.add(new Triple(mainSubjectNode, p1 ,pBNode)) ;
 
-                for (String currentField:fields){
-                    Node px  = getNode(currentField);
-                }
+                //treat remaining elements and create the chain
+                //with everything intermediary being blank nodes
                 int i=0;
                 while (i<fields.size()){
-                    Node currentField = getNode(fields.get(i));
+                    Node currentField = getNode(null,fields.get(i));
                     if (i==fields.size()-1){
                         bp.add(new Triple(pBNode, currentField ,getVNode(field,resource))) ;
                     } else {
@@ -80,13 +76,15 @@ public class SimpleMapping extends Mapping {
                     }
                     i++;
                 }
+
+
             }
         }
 
         //generating the query graph patterns for every composite fields
         Map<String, QResource> currentQResources = resource.getqResources();
         for (String field:currentQResources.keySet()){
-               Node predicateNode = getNode(field);
+               Node predicateNode = getNode(null,field);
 
                //check if qresource has id
                Node subjectNode = NodeFactory.createBlankNode();
@@ -97,20 +95,19 @@ public class SimpleMapping extends Mapping {
                }
                BasicPattern newBPs = currentQResource.generateBasicPattern(this,subjectNode,mainSubjectNode,predicateNode);
                bp.addAll(newBPs);
-
         }
 
         Op op = new OpBGP(bp) ;
-
         Query q = OpAsQuery.asQuery(op);
-
 
         for (String prefix:prefixes.keySet()){
             q.setPrefix(prefix,prefixes.get(prefix));
         }
         return q;
     }
-    Node getNode(String field){
+
+    //utility methods
+    Node getNode(String type,String field){
         String predicateIRI;
         if (resourceExceptions.containsKey(field)){
             predicateIRI = resourceExceptions.get(field);
