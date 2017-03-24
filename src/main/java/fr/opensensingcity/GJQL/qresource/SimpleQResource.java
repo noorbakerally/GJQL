@@ -130,6 +130,7 @@ public class SimpleQResource extends QResource {
 
         //generating a triple pattern for every atomic fields
         for (String field:getAtomicFields()){
+            System.out.println("field:"+field);
             Node predicateNode = mapping.getNode(getrType(),field);
             bp.add(new Triple(mainSubjectNode, predicateNode ,mapping.getVNode(field,this))) ;
         }
@@ -137,11 +138,12 @@ public class SimpleQResource extends QResource {
 
         //to add composite here
         for (String field:getqResources().keySet()){
-
+            QResource currentQResource = qResources.get(field);
+            currentQResource.setrType(field);
             Node predicateNode = mapping.getNode(getrType(),field);
             //check if qresource has id
             Node subjectNode = NodeFactory.createBlankNode();
-            QResource currentQResource = qResources.get(field);
+
             if (currentQResource.hasId()){
                 String resourceIRI = mapping.getDefaultResourceNamespace() + getrId();
                 subjectNode = NodeFactory.createURI(resourceIRI);

@@ -8,6 +8,7 @@ import org.apache.jena.sparql.core.Var;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Logger;
 
 /**
  * Created by bakerally on 3/19/17.
@@ -18,7 +19,7 @@ public abstract class Mapping {
     Map<String,String> prefixes;
     Map <String,String> resourceExceptions;
     Map <String, Map <String,String>> classResourceExceptions;
-
+    public static final Logger LOGGER = Logger.getLogger(Mapping.class.getName());
 
     public  Mapping(){
         prefixes = new HashMap<String, String>();

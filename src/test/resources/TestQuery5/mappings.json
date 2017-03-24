@@ -14,14 +14,15 @@
     "name":"http://opensensingcity.emse.fr/ontology/name",
     "lat":"http://www.w3.org/2003/01/geo/wgs84_pos#lat",
     "long":"http://www.w3.org/2003/01/geo/wgs84_pos#long",
-    "Manager":{
+    "ParkingManager":{
       "_type":"osc:ParkingManger",
       "Parking":"osc:manages",
-      "HomeOffice":"osc:HomeOffice"
+      "HomeOffice":"osc:HomeOffice",
+      "name":"dc:title"
     },
     "Parking":{
       "_type":"osc:Parking",
-      "Manager":"osc:managedBy",
+      "ParkingManager":"osc:managedBy",
       "name": "rdfs:label"
     },
     "HomeOffice":{
