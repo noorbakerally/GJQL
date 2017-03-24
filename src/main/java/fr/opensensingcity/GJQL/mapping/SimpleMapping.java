@@ -28,6 +28,8 @@ public class SimpleMapping extends Mapping {
 
 
     public Query generateSPARQLQuery(QResource resource) {
+
+
         Node mainSubjectNode = NodeFactory.createBlankNode();
         BasicPattern bp = new BasicPattern() ;
 
@@ -49,9 +51,10 @@ public class SimpleMapping extends Mapping {
 
             if (!field.contains(".")){
                 //i.e. purely atomic field
-                Node predicateNode = getNode(null,field);
+                Node predicateNode = getNode(resource.getrType(),field);
                 Var variableNode = Var.alloc(field+resource.getQid());
                 bp.add(new Triple(mainSubjectNode, predicateNode ,variableNode)) ;
+
             } else {
                 //create property path
 
@@ -60,7 +63,7 @@ public class SimpleMapping extends Mapping {
 
                 //treat the first element and connect it to main node
                 String iri1 = fields.remove(0);
-                Node p1  = getNode(null,iri1);
+                Node p1  = getNode(resource.getrType(),iri1);
                 Node pBNode = NodeFactory.createBlankNode();
                 bp.add(new Triple(mainSubjectNode, p1 ,pBNode)) ;
 
@@ -68,7 +71,7 @@ public class SimpleMapping extends Mapping {
                 //with everything intermediary being blank nodes
                 int i=0;
                 while (i<fields.size()){
-                    Node currentField = getNode(null,fields.get(i));
+                    Node currentField = getNode(resource.getrType(),fields.get(i));
                     if (i==fields.size()-1){
                         bp.add(new Triple(pBNode, currentField ,getVNode(field,resource))) ;
                     } else {
@@ -84,17 +87,19 @@ public class SimpleMapping extends Mapping {
         //generating the query graph patterns for every composite fields
         Map<String, QResource> currentQResources = resource.getqResources();
         for (String field:currentQResources.keySet()){
-               Node predicateNode = getNode(null,field);
+            //System.out.println("Composite Resource:"+field);
+            QResource currentQResource = currentQResources.get(field);
+            Node predicateNode = getNode(resource.getrType(),field);
 
-               //check if qresource has id
-               Node subjectNode = NodeFactory.createBlankNode();
-               QResource currentQResource = currentQResources.get(field);
-               if (currentQResource.hasId()){
-                   String resourceIRI = defaultResourceNamespace + resource.getrId();
-                   subjectNode = NodeFactory.createURI(resourceIRI);
-               }
-               BasicPattern newBPs = currentQResource.generateBasicPattern(this,subjectNode,mainSubjectNode,predicateNode);
-               bp.addAll(newBPs);
+            //check if qresource has id
+            Node subjectNode = NodeFactory.createBlankNode();
+
+            if (currentQResource.hasId()){
+                String resourceIRI = defaultResourceNamespace + resource.getrId();
+                subjectNode = NodeFactory.createURI(resourceIRI);
+            }
+            BasicPattern newBPs = currentQResource.generateBasicPattern(this,subjectNode,mainSubjectNode,predicateNode);
+            bp.addAll(newBPs);
         }
 
         Op op = new OpBGP(bp) ;
@@ -106,23 +111,8 @@ public class SimpleMapping extends Mapping {
         return q;
     }
 
-    //utility methods
-    Node getNode(String type,String field){
-        String predicateIRI;
-        if (resourceExceptions.containsKey(field)){
-            predicateIRI = resourceExceptions.get(field);
-        } else {
-            predicateIRI = defaultClassNamespace + field;
-        }
-        Node predicateNode = NodeFactory.createURI(predicateIRI);
-        return predicateNode;
-    }
 
-    Node getVNode(String field,QResource qResource){
-        if (field.contains(".")){
-            field = field.replace(".","");
-        }
-        return Var.alloc(field+qResource.getQid());
-    }
+
+
 
 }
