@@ -140,24 +140,28 @@ public class SimpleQResource extends QResource {
         return result;
     }
 
-    public String serializeResult(List <QuerySolution> solutions) {
+    public String serializeResult(ResultSet solutions) {
         JsonParser parser = new JsonParser();
-        JsonArray arrResult = null;
+        JsonArray arrResult = new JsonArray();
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         JsonElement result = new JsonObject();
 
+        QuerySolution querySolution;
+        if (solutions.hasNext()){
+            querySolution = solutions.next();
+            result = serializeSolution(querySolution);
+        }
 
-        if (solutions.size() > 1){
-            arrResult = new JsonArray();
-            for (QuerySolution querySolution:solutions){
+        if (solutions.hasNext()){
+            arrResult.add(result);
+            while (solutions.hasNext()){
+                querySolution = solutions.next();
                 result = serializeSolution(querySolution);
                 arrResult.add(result);
             }
             return gson.toJson(arrResult);
         } else {
-            result = serializeSolution(solutions.get(0));
             return gson.toJson(result);
-
         }
     }
 

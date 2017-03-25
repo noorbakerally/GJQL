@@ -85,13 +85,9 @@ public class TestQuery {
         //generate results from query
         String modelIRI = testClassPath+"/graph.ttl";
         ResultSet resultBindings = GraphUtils.executeSPARQL(query, modelIRI);
-        List<QuerySolution> querySolutions = new ArrayList<QuerySolution>();
-        while (resultBindings.hasNext()){
-            QuerySolution qs = resultBindings.next();
-            querySolutions.add(qs);
-        }
 
-        String result = resource.serializeResult(querySolutions);
+
+        String result = resource.serializeResult(resultBindings);
         //System.out.println(result);
 
         JsonElement generatedResultObject = parser.parse(result);

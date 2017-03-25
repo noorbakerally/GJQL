@@ -58,7 +58,7 @@ public abstract class QResource {
     public void setAtomicFields(List<String> atomicFields) {
         this.atomicFields = atomicFields;
     }
-    public abstract  String serializeResult(List <QuerySolution> solutions);
+    public abstract  String serializeResult(ResultSet bindings);
 
     public abstract BasicPattern generateExpression(Mapping mapping, Node subjectNode,Node  linkNode,Node predicateNode);
     public abstract JsonElement serializeSolution(QuerySolution solution);
