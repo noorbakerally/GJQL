@@ -148,7 +148,6 @@ public class SimpleQResource extends QResource {
 
 
         if (solutions.size() > 1){
-            System.out.println("Enters here");
             arrResult = new JsonArray();
             for (QuerySolution querySolution:solutions){
                 result = serializeSolution(querySolution);

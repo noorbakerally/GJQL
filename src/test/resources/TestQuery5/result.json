@@ -9,27 +9,25 @@
   "name": "Parking NeyLabel",
   "lat": "45.770088718787825e0",
   "long": "4.855142822219495e0",
-  "ParkingManager": [
-    {
-      "_type": "ParkingManager",
+  "ParkingManager": {
+    "_type": "ParkingManager",
+    "_fields": [
+      "name",
+      "homepage"
+    ],
+    "name": "French Ville",
+    "homepage": "https://www.grandlyon.com/",
+    "Parking": {
+      "_id": "P571",
+      "_type": "Parking",
       "_fields": [
         "name",
-        "homepage"
+        "lat",
+        "long"
       ],
-      "name": "French Ville",
-      "homepage": "https://www.grandlyon.com/",
-      "Parking": {
-        "_id": "P571",
-        "_type": "Parking",
-        "_fields": [
-          "name",
-          "lat",
-          "long"
-        ],
-        "name": "Parking Ney",
-        "lat": "45.770088718787825e0",
-        "long": "4.855142822219495e0"
-      }
+      "name": "Parking Ney",
+      "lat": "45.770088718787825e0",
+      "long": "4.855142822219495e0"
     }
-  ]
+  }
 }

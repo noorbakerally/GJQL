@@ -2,6 +2,7 @@
  * Created by bakerally on 3/17/17.
  */
 
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import fr.opensensingcity.GJQL.GraphUtils;
@@ -33,8 +34,24 @@ public class TestQuery {
 
 
     @Test
-    public void testGenerateSPARQLFromJson() throws IOException, URISyntaxException {
-        assertTrue(performithTest(11));
+    public void testGenersateSPARQLFromJson() throws IOException, URISyntaxException {
+
+        int testPass =0;
+        int testfailed =0;
+        for (int i=1;i<=11;i++){
+            System.out.println("##########TestQuery"+i);
+            if (performithTest(i)){
+                System.out.println("Test Passed");
+                testPass++;
+            } else {
+                System.out.println("Test Failed");
+                testfailed++;
+            }
+            System.out.println();
+            System.out.println();
+        }
+        System.out.println("Test Passed:"+testPass);
+        System.out.println("Test Failed:"+testfailed);
     }
 
     public boolean performithTest(int ithTest) throws IOException, URISyntaxException {
@@ -75,12 +92,13 @@ public class TestQuery {
         }
 
         String result = resource.serializeResult(querySolutions);
+        //System.out.println(result);
 
-        JsonObject generatedResultObject = parser.parse(result).getAsJsonObject();
+        JsonElement generatedResultObject = parser.parse(result);
 
         //load original result
         String originalResult = getFileContentFromResource(ithTest,"result.json");
-        JsonObject originalResultObject = parser.parse(originalResult).getAsJsonObject();
+        JsonElement originalResultObject = parser.parse(originalResult);
 
 
         return (generatedResultObject.equals(originalResultObject));
