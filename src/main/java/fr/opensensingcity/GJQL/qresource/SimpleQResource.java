@@ -134,8 +134,16 @@ public class SimpleQResource extends QResource {
         for (String qResourceKey:qResources.keySet()){
             QResource currentQResource = qResources.get(qResourceKey);
             //System.out.println(currentQResource.toStr());
-            JsonElement jsonQResource = currentQResource.serializeSolution(solution);
-            result.add(qResourceKey,jsonQResource);
+
+            if (currentQResource.hasId()){
+                JsonElement jsonQResource = currentQResource.serializeSolution(solution);
+                result.add(qResourceKey,jsonQResource);
+            } else {
+                JsonArray arrQResource = new JsonArray();
+                arrQResource.add(currentQResource.serializeSolution(solution));
+                result.add(qResourceKey,arrQResource);
+            }
+
         }
         return result;
     }
