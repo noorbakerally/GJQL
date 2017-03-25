@@ -54,9 +54,12 @@ public class TestQuery11 {
         for (String prefix:simpleMapping.getPrefixes().keySet()){
             query.setPrefix(prefix,simpleMapping.getPrefixes().get(prefix));
         }
-        //System.out.println(query.serialize());
 
 
+
+        String oqueryStr  = TestUtils.getFileContentFromResource(this,"query.rq");
+
+        //assertTrue(originalQuery.getQueryPattern().equalTo(query.getQueryPattern(),null));
 
         //generate results from query
         String modelIRI = getClass().getResource("/"+getClass().getSimpleName()).toString()+"/graph.ttl";
@@ -65,27 +68,20 @@ public class TestQuery11 {
         while (resultBindings.hasNext()){
             QuerySolution qs = resultBindings.next();
             querySolutions.add(qs);
-            System.out.println(qs);
         }
 
         String result = resource.serializeResult(querySolutions);
-        System.out.println(result);
 
-        System.out.println("Resource Details:\n"+resource.toStr());
-
-
-        /*
-         Query originalQuery = QueryFactory.create(oqueryStr);
         JsonObject generatedResultObject = parser.parse(result).getAsJsonObject();
 
         //load original result
         String originalResult = TestUtils.getFileContentFromResource(this,"result.json");
         JsonObject originalResultObject = parser.parse(originalResult).getAsJsonObject();
 
-       *//* System.out.println(generatedResultObject);
-        System.out.println(originalResultObject);*//*
+       /* System.out.println(generatedResultObject);
+        System.out.println(originalResultObject);*/
 
 
-        assertTrue(generatedResultObject.equals(originalResultObject));*/
+        assertTrue(generatedResultObject.equals(originalResultObject));
     }
 }

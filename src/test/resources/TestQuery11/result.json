@@ -1,1 +1,10 @@
-{"_id":"P570","_type":"Parking","_fields":["name"],"name":"Parking Ney"}
+{
+  "Parking": {
+    "_id": "P570",
+    "_type": "Parking",
+    "_fields": [
+      "name"
+    ],
+    "name": "Parking Ney"
+  }
+}

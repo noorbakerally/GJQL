@@ -1,5 +1,6 @@
 package fr.opensensingcity.GJQL.qresource;
 
+import com.google.gson.JsonElement;
 import fr.opensensingcity.GJQL.mapping.Mapping;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.jena.graph.Node;
@@ -60,6 +61,7 @@ public abstract class QResource {
     public abstract  String serializeResult(List <QuerySolution> solutions);
 
     public abstract BasicPattern generateExpression(Mapping mapping, Node subjectNode,Node  linkNode,Node predicateNode);
+    public abstract JsonElement serializeSolution(QuerySolution solution);
 
     public Map<String, QResource> getqResources() {
         return qResources;

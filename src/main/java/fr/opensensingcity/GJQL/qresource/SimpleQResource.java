@@ -107,7 +107,7 @@ public class SimpleQResource extends QResource {
     }
 
 
-    JsonElement serializeSolution(QuerySolution solution){
+    public JsonElement serializeSolution(QuerySolution solution){
         JsonParser parser = new JsonParser();
         JsonObject result = new JsonObject();
         if (hasId()){
@@ -130,13 +130,13 @@ public class SimpleQResource extends QResource {
             result.addProperty(atomicField,solution.get(getVName(atomicField)).asLiteral().getLexicalForm());
         }
 
-        /*//serializing QResources
+        //serializing QResources
         for (String qResourceKey:qResources.keySet()){
             QResource currentQResource = qResources.get(qResourceKey);
-            JsonElement jsonQResource = serializeSolution(solution);
+            //System.out.println(currentQResource.toStr());
+            JsonElement jsonQResource = currentQResource.serializeSolution(solution);
             result.add(qResourceKey,jsonQResource);
-        }*/
-
+        }
         return result;
     }
 
@@ -146,9 +146,8 @@ public class SimpleQResource extends QResource {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         JsonElement result = new JsonObject();
 
-        System.out.println(this.qResources);
 
-        /*if (solutions.size() > 1){
+        if (solutions.size() > 1){
             System.out.println("Enters here");
             arrResult = new JsonArray();
             for (QuerySolution querySolution:solutions){
@@ -160,10 +159,7 @@ public class SimpleQResource extends QResource {
             result = serializeSolution(solutions.get(0));
             return gson.toJson(result);
 
-        }*/
-
-        return "";
-
+        }
     }
 
 
