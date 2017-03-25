@@ -38,7 +38,7 @@ public class TestQuery {
 
         int testPass =0;
         int testfailed =0;
-        for (int i=1;i<=11;i++){
+        for (int i=12;i<=12;i++){
             System.out.println("##########TestQuery"+i);
             if (performithTest(i)){
                 System.out.println("Test Passed");
@@ -52,6 +52,9 @@ public class TestQuery {
         }
         System.out.println("Test Passed:"+testPass);
         System.out.println("Test Failed:"+testfailed);
+
+
+
     }
 
     public boolean performithTest(int ithTest) throws IOException, URISyntaxException {
@@ -88,7 +91,7 @@ public class TestQuery {
 
 
         String result = resource.serializeResult(resultBindings);
-        //System.out.println(result);
+        System.out.println(result);
 
         JsonElement generatedResultObject = parser.parse(result);
 
