@@ -38,7 +38,7 @@ public class TestQuery {
 
         int testPass =0;
         int testfailed =0;
-        for (int i=12;i<=12;i++){
+        for (int i=13;i<=13;i++){
             System.out.println("##########TestQuery"+i);
             if (performithTest(i)){
                 System.out.println("Test Passed");

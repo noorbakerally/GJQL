@@ -1,0 +1,11 @@
+{
+  "Parking":{
+    "_fields":["name","lat","long"],
+    "ParkingManager":{
+        "_id":"M1",
+        "_fields":["name","homepage"]
+    }
+  }
+}
+
+
