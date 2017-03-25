@@ -1,6 +1,5 @@
 {
   "ParkingManager":{
-    "_id":"M1",
     "_fields":["name"],
     "Parking":{
       "_fields":["name"]

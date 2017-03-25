@@ -3,7 +3,14 @@
     "_fields":["name","lat","long"],
     "ParkingManager":{
         "_id":"M1",
-        "_fields":["name","homepage"]
+        "_fields":["name","homepage"],
+        "Parking": {
+          "_fields": [
+            "name",
+            "lat",
+            "long"
+          ]
+        }
     }
   }
 }
