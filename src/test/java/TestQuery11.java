@@ -1,16 +1,17 @@
 /**
  * Created by bakerally on 3/17/17.
  */
-
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import fr.opensensingcity.GJQL.GraphUtils;
 import fr.opensensingcity.GJQL.factory.MappingFactory;
 import fr.opensensingcity.GJQL.factory.QResourceFactory;
-import fr.opensensingcity.GJQL.mapping.Mapping;
 import fr.opensensingcity.GJQL.qresource.QResource;
+import fr.opensensingcity.GJQL.mapping.Mapping;
 import org.apache.jena.query.Query;
 import org.apache.jena.query.QueryFactory;
+import org.apache.jena.query.QuerySolution;
+import org.apache.jena.query.ResultSet;
 import org.apache.jena.sparql.algebra.Op;
 import org.apache.jena.sparql.algebra.OpAsQuery;
 import org.apache.jena.sparql.algebra.op.OpBGP;
@@ -18,9 +19,12 @@ import org.apache.jena.sparql.core.BasicPattern;
 import org.junit.Test;
 import testutils.TestUtils;
 
-import java.io.IOException;
+import java.io.*;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
+import java.util.List;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 public class TestQuery11 {
@@ -47,22 +51,31 @@ public class TestQuery11 {
         Op op = new OpBGP(expression) ;
         Query query = OpAsQuery.asQuery(op);
         query.setQueryResultStar(false);
-
         for (String prefix:simpleMapping.getPrefixes().keySet()){
             query.setPrefix(prefix,simpleMapping.getPrefixes().get(prefix));
         }
+        //System.out.println(query.serialize());
 
-        System.out.println(query.serialize());
 
-        /*//System.out.println(query.serialize());
-
-        String oqueryStr  = TestUtils.getFileContentFromResource(this,"query.rq");
-        Query originalQuery = QueryFactory.create(oqueryStr);
-        //assertTrue(originalQuery.getQueryPattern().equalTo(query.getQueryPattern(),null));
 
         //generate results from query
         String modelIRI = getClass().getResource("/"+getClass().getSimpleName()).toString()+"/graph.ttl";
-        String result = resource.serializeResult(GraphUtils.executeSPARQL(query,modelIRI));
+        ResultSet resultBindings = GraphUtils.executeSPARQL(query, modelIRI);
+        List<QuerySolution> querySolutions = new ArrayList<QuerySolution>();
+        while (resultBindings.hasNext()){
+            QuerySolution qs = resultBindings.next();
+            querySolutions.add(qs);
+            System.out.println(qs);
+        }
+
+        String result = resource.serializeResult(querySolutions);
+        System.out.println(result);
+
+        System.out.println("Resource Details:\n"+resource.toStr());
+
+
+        /*
+         Query originalQuery = QueryFactory.create(oqueryStr);
         JsonObject generatedResultObject = parser.parse(result).getAsJsonObject();
 
         //load original result

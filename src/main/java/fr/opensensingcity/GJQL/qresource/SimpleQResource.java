@@ -107,22 +107,9 @@ public class SimpleQResource extends QResource {
     }
 
 
-
-    public String serializeResult(Object bindings) {
+    JsonElement serializeSolution(QuerySolution solution){
         JsonParser parser = new JsonParser();
-        JsonArray arrResult = new JsonArray();
         JsonObject result = new JsonObject();
-
-        QuerySolution binding = null;
-        ResultSet currentResultSet=null;
-        if (!bindings.getClass().equals(ResultBinding.class)){
-            currentResultSet = ((ResultSet) bindings);
-            binding = ((ResultSet) bindings).next();
-        } else {
-            binding = (QuerySolution) bindings;
-        }
-
-        result = new JsonObject();
         if (hasId()){
             result.addProperty("_id",rId);
         }
@@ -140,40 +127,45 @@ public class SimpleQResource extends QResource {
         }
 
         for (String atomicField:atomicFields){
-            result.addProperty(atomicField,binding.get(getVName(atomicField)).asLiteral().getLexicalForm());
+            result.addProperty(atomicField,solution.get(getVName(atomicField)).asLiteral().getLexicalForm());
         }
 
-        //serializing QResources
+        /*//serializing QResources
         for (String qResourceKey:qResources.keySet()){
             QResource currentQResource = qResources.get(qResourceKey);
-            String strQResource = currentQResource.serializeResult(binding);
-
-            JsonElement jsonQResource = parser.parse(strQResource);
+            JsonElement jsonQResource = serializeSolution(solution);
             result.add(qResourceKey,jsonQResource);
-        }
+        }*/
 
+        return result;
+    }
 
-        if (!hasId()){
-            arrResult.add(result);
-            if (currentResultSet!=null){
-                if (currentResultSet.hasNext()){
-                    String tempResult = serializeResult(currentResultSet);
-                    JsonElement queryObject = parser.parse(tempResult);
-                    arrResult.add(queryObject);
-                }
-            }
-        }
-
-
+    public String serializeResult(List <QuerySolution> solutions) {
+        JsonParser parser = new JsonParser();
+        JsonArray arrResult = null;
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
-        if (hasId()) {
-            //return result.toString();
+        JsonElement result = new JsonObject();
+
+        System.out.println(this.qResources);
+
+        /*if (solutions.size() > 1){
+            System.out.println("Enters here");
+            arrResult = new JsonArray();
+            for (QuerySolution querySolution:solutions){
+                result = serializeSolution(querySolution);
+                arrResult.add(result);
+            }
+            return gson.toJson(arrResult);
+        } else {
+            result = serializeSolution(solutions.get(0));
             return gson.toJson(result);
-        }
-        //return arrResult.toString();
-        return gson.toJson(arrResult);
+
+        }*/
+
+        return "";
 
     }
+
 
     String getVName(String field){
         if (field.contains(".")){
