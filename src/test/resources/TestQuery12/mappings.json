@@ -15,7 +15,11 @@
       "ParkingManager":"http://opensensingcity.emse.fr/ontology/managedBy"
     },
     "ParkingManager":{
-      "Parking":"http://opensensingcity.emse.fr/ontology/manages"
+      "Parking":"http://opensensingcity.emse.fr/ontology/manages",
+      "HomeOffice":"osc:homeOffice"
+    },
+    "HomeOffice":{
+      "name":"osc:name"
     }
   }
 }

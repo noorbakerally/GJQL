@@ -1,9 +1,0 @@
-{
-  "ParkingManager":{
-    "_fields":["name"],
-    "Parking":{
-      "_fields":["name"]
-    }
-  }
-}
-
