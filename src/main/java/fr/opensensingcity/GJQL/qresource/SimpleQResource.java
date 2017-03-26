@@ -69,6 +69,7 @@ public class SimpleQResource extends QResource {
                 String iri1 = fields.get(0);
                 Node p1  = mapping.getNode(getrType(),iri1);
                 Node pBNode = NodeFactory.createBlankNode();
+
                 bp.addTriplePattern(new Triple(mainSubjectNode, p1 ,pBNode)) ;
 
                 //treat remaining elements and create the chain
@@ -98,7 +99,7 @@ public class SimpleQResource extends QResource {
             subjectNode = Var.alloc("Id_"+currentQResource.qid);
 
             if (currentQResource.hasId()){
-                String resourceIRI = mapping.getDefaultResourceNamespace() + getrId();
+                String resourceIRI = mapping.getDefaultResourceNamespace() + currentQResource.getrId();
                 subjectNode = NodeFactory.createURI(resourceIRI);
             }
             ElementGroup newBPs = currentQResource.generateExpression(mapping,subjectNode,mainSubjectNode,predicateNode);
