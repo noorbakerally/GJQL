@@ -41,7 +41,7 @@ public class TestQuery {
         int testPass =0;
         int testfailed =0;
         int start = 0;
-        int stop = 1;
+        int stop = 3;
         start = stop;
         for (int i=start;i<=stop;i++){
             System.out.println("##########TestQuery"+i);
@@ -67,7 +67,7 @@ public class TestQuery {
         //get absolute path to test folder
         URL location = TestQuery.class.getProtectionDomain().getCodeSource().getLocation();
         String path = location.getPath();
-        String testClassPath = path.substring(0, path.lastIndexOf("/"))+"/TestQuery"+ithTest;
+        String testClassPath = path.substring(0, path.lastIndexOf("/"))+"/TestResources";
 
         JsonParser parser = new JsonParser();
         //get resource representation
