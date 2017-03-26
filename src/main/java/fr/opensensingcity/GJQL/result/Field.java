@@ -1,5 +1,7 @@
 package fr.opensensingcity.GJQL.result;
 
+import org.apache.jena.rdf.model.RDFNode;
+
 /**
  * Created by bakerally on 3/19/17.
  */
@@ -8,9 +10,9 @@ public abstract  class Field {
     String fieldValue;
     String datatypeIRI;
 
-    public Field(String fieldName,String fieldValue){
+    public Field(String fieldName, RDFNode nodeField){
         this.fieldName = fieldName;
-        this.fieldValue = fieldValue;
+        this.fieldValue = nodeField.asLiteral().getLexicalForm();
     }
     public String getFieldName() {
         return fieldName;
