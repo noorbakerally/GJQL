@@ -110,7 +110,6 @@ public class TestQuery {
         ResultSet resultBindings = GraphUtils.executeSPARQL(query, modelIRI);
 
         ResultSetFormatter.out(resultBindings,simpleMapping.getPrefixMapping());
-
         String result = resource.serializeResult(resultBindings);
         System.out.println(result);
 
@@ -124,7 +123,7 @@ public class TestQuery {
 
 
         return (generatedResultObject.equals(originalResultObject));
-        
+
     }
 
     public static String getFileContentFromResource(int ithTest,String filename) throws URISyntaxException, IOException {
