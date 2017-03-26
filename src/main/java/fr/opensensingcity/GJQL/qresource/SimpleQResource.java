@@ -163,9 +163,9 @@ public class SimpleQResource extends QResource {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         JsonElement result = new JsonObject();
 
-        return "";
 
-        /*QuerySolution querySolution;
+
+        QuerySolution querySolution;
         if (solutions.hasNext()){
             querySolution = solutions.next();
             result = serializeSolution(querySolution);
@@ -181,7 +181,7 @@ public class SimpleQResource extends QResource {
             return gson.toJson(arrResult);
         } else {
             return gson.toJson(result);
-        }*/
+        }
 
     }
 

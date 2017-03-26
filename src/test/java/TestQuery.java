@@ -115,7 +115,7 @@ public class TestQuery {
         System.out.println(result);
 
 
-        /*
+
         JsonElement generatedResultObject = parser.parse(result);
 
         //load original result
@@ -123,9 +123,8 @@ public class TestQuery {
         JsonElement originalResultObject = parser.parse(originalResult);
 
 
-        return (generatedResultObject.equals(originalResultObject));*/
-
-        return true;
+        return (generatedResultObject.equals(originalResultObject));
+        
     }
 
     public static String getFileContentFromResource(int ithTest,String filename) throws URISyntaxException, IOException {
