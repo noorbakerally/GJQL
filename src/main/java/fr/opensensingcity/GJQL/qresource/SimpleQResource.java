@@ -13,6 +13,7 @@ import org.apache.jena.sparql.core.BasicPattern;
 import org.apache.jena.sparql.core.ResultBinding;
 import org.apache.jena.sparql.core.Var;
 import org.apache.jena.sparql.expr.NodeValue;
+import org.apache.jena.sparql.syntax.Element;
 import org.apache.jena.sparql.syntax.ElementBind;
 import org.apache.jena.sparql.syntax.ElementGroup;
 import org.apache.jena.sparql.util.ResultSetUtils;
@@ -97,14 +98,17 @@ public class SimpleQResource extends QResource {
             predicateNode = mapping.getNode(getrType(),field);
 
             //check if qresource has id
-            subjectNode = NodeFactory.createBlankNode();
+            subjectNode = Var.alloc("Id"+currentQResource.qid);
 
             if (currentQResource.hasId()){
                 String resourceIRI = mapping.getDefaultResourceNamespace() + getrId();
                 subjectNode = NodeFactory.createURI(resourceIRI);
             }
             ElementGroup newBPs = currentQResource.generateExpression(mapping,subjectNode,mainSubjectNode,predicateNode);
-            bp.addElement(newBPs);
+            for (Element element:newBPs.getElements()){
+                bp.addElement(element);
+            }
+            bp.addTriplePattern(new Triple(mainSubjectNode,predicateNode,subjectNode));
         }
         return bp;
 

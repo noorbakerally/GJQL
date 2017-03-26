@@ -1,10 +1,9 @@
 {
-  "Parking":{
-    "_id":"P570",
-    "_type":"Parking",
-    "_fields":["name"],
-    "ParkingManager":{
-      "_fields":["name","homepage"]
+  "ParkingManager":{
+    "_id":"M1",
+    "_fields":["name","homepage"],
+    "Parking":{
+      "_fields":["name"]
     }
   }
 }
