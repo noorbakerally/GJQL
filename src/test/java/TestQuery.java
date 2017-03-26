@@ -10,13 +10,13 @@ import fr.opensensingcity.GJQL.factory.MappingFactory;
 import fr.opensensingcity.GJQL.factory.QResourceFactory;
 import fr.opensensingcity.GJQL.mapping.Mapping;
 import fr.opensensingcity.GJQL.qresource.QResource;
-import org.apache.jena.query.Query;
-import org.apache.jena.query.QuerySolution;
-import org.apache.jena.query.ResultSet;
+import org.apache.jena.query.*;
 import org.apache.jena.sparql.algebra.Op;
 import org.apache.jena.sparql.algebra.OpAsQuery;
 import org.apache.jena.sparql.algebra.op.OpBGP;
 import org.apache.jena.sparql.core.BasicPattern;
+import org.apache.jena.sparql.resultset.ResultsFormat;
+import org.apache.jena.sparql.syntax.ElementGroup;
 import org.junit.Test;
 
 import java.io.File;
@@ -88,10 +88,19 @@ public class TestQuery {
         Mapping simpleMapping = MappingFactory.generateSimpleMappingFromJSON(queryMappingObject);
 
         //generate query
-        BasicPattern expression = resource.generateExpression(simpleMapping,null,null,null);
-        Op op = new OpBGP(expression) ;
-        Query query = OpAsQuery.asQuery(op);
+        ElementGroup expression = resource.generateExpression(simpleMapping,null,null,null);
+
+        Query query = QueryFactory.make();
+        query.setQueryPattern(expression);
         query.setQueryResultStar(false);
+        for(String prefix:simpleMapping.getPrefixes().keySet()){
+            query.setPrefix(prefix,simpleMapping.getPrefixes().get(prefix));
+        }
+        query.setQuerySelectType();
+        query.setQueryResultStar(true);
+        System.out.println(query.serialize());
+
+
         for (String prefix:simpleMapping.getPrefixes().keySet()){
             query.setPrefix(prefix,simpleMapping.getPrefixes().get(prefix));
         }
@@ -100,9 +109,11 @@ public class TestQuery {
         String modelIRI = testClassPath+"/graph.ttl";
         ResultSet resultBindings = GraphUtils.executeSPARQL(query, modelIRI);
 
+        ResultSetFormatter.out(resultBindings,simpleMapping.getPrefixMapping());
 
         String result = resource.serializeResult(resultBindings);
         System.out.println(result);
+
 
         /*
         JsonElement generatedResultObject = parser.parse(result);

@@ -5,16 +5,16 @@ import fr.opensensingcity.GJQL.mapping.Mapping;
 import org.apache.jena.graph.Node;
 import org.apache.jena.graph.NodeFactory;
 import org.apache.jena.graph.Triple;
-import org.apache.jena.query.Query;
-import org.apache.jena.query.QuerySolution;
-import org.apache.jena.query.ResultSet;
-import org.apache.jena.query.ResultSetFactory;
+import org.apache.jena.query.*;
 import org.apache.jena.sparql.algebra.Op;
 import org.apache.jena.sparql.algebra.OpAsQuery;
 import org.apache.jena.sparql.algebra.op.OpBGP;
 import org.apache.jena.sparql.core.BasicPattern;
 import org.apache.jena.sparql.core.ResultBinding;
 import org.apache.jena.sparql.core.Var;
+import org.apache.jena.sparql.expr.NodeValue;
+import org.apache.jena.sparql.syntax.ElementBind;
+import org.apache.jena.sparql.syntax.ElementGroup;
 import org.apache.jena.sparql.util.ResultSetUtils;
 import org.apache.jena.vocabulary.RDF;
 
@@ -31,21 +31,25 @@ public class SimpleQResource extends QResource {
         qid = String.valueOf(Math.abs(random.nextLong()));
     }
 
-    public BasicPattern generateExpression(Mapping mapping, Node subjectNode,Node  linkNode,Node predicateNode) {
-        Node mainSubjectNode = NodeFactory.createBlankNode();
-        BasicPattern bp = new BasicPattern() ;
+    public ElementGroup generateExpression(Mapping mapping, Node subjectNode, Node  linkNode, Node predicateNode) {
+
+        Node mainSubjectNode = Var.alloc("Id"+qid);
+        ElementGroup bp = new ElementGroup() ;
 
         //creating an identified subject if there is an Id
         if (hasId()){
             String resourceIRI =  mapping.getDefaultResourceNamespace() + getrId();
             mainSubjectNode = NodeFactory.createURI(resourceIRI);
+            ElementBind x = new ElementBind(Var.alloc("Id"+qid), NodeValue.makeNode(mainSubjectNode));
+            bp.addElement(x);
+
         }
 
         //creating a type for the resource
         if (hasType()){
             String mainTypeIRI = mapping.getDefaultClassNamespace() + getrType();
             Node mainSubjectType = NodeFactory.createURI(mainTypeIRI);
-            bp.add(new Triple(mainSubjectNode, RDF.Nodes.type , mainSubjectType)) ;
+            bp.addTriplePattern(new Triple(mainSubjectNode, RDF.Nodes.type , mainSubjectType)); ;
         }
 
         //generating a triple pattern for every atomic fields
@@ -55,7 +59,7 @@ public class SimpleQResource extends QResource {
                 //i.e. purely atomic field
                 predicateNode =  mapping.getNode(getrType(),field);
                 Var variableNode = Var.alloc(field+getQid());
-                bp.add(new Triple(mainSubjectNode, predicateNode ,variableNode)) ;
+                bp.addTriplePattern(new Triple(mainSubjectNode, predicateNode ,variableNode)) ;
 
             } else {
                 //create property path
@@ -67,7 +71,7 @@ public class SimpleQResource extends QResource {
                 String iri1 = fields.get(0);
                 Node p1  = mapping.getNode(getrType(),iri1);
                 Node pBNode = NodeFactory.createBlankNode();
-                bp.add(new Triple(mainSubjectNode, p1 ,pBNode)) ;
+                bp.addTriplePattern(new Triple(mainSubjectNode, p1 ,pBNode)) ;
 
                 //treat remaining elements and create the chain
                 //with everything intermediary being blank nodes
@@ -75,9 +79,9 @@ public class SimpleQResource extends QResource {
                 while (i<fields.size()){
                     Node currentField = mapping.getNode(fields.get(i-1),fields.get(i));
                     if (i==fields.size()-1){
-                        bp.add(new Triple(pBNode, currentField ,mapping.getVNode(field,this))) ;
+                        bp.addTriplePattern(new Triple(pBNode, currentField ,mapping.getVNode(field,this))) ;
                     } else {
-                        bp.add(new Triple(pBNode,currentField,pBNode = NodeFactory.createBlankNode()));
+                        bp.addTriplePattern(new Triple(pBNode,currentField,pBNode = NodeFactory.createBlankNode()));
                     }
                     i++;
                 }
@@ -99,8 +103,8 @@ public class SimpleQResource extends QResource {
                 String resourceIRI = mapping.getDefaultResourceNamespace() + getrId();
                 subjectNode = NodeFactory.createURI(resourceIRI);
             }
-            BasicPattern newBPs = currentQResource.generateExpression(mapping,subjectNode,mainSubjectNode,predicateNode);
-            bp.addAll(newBPs);
+            ElementGroup newBPs = currentQResource.generateExpression(mapping,subjectNode,mainSubjectNode,predicateNode);
+            bp.addElement(newBPs);
         }
         return bp;
 
@@ -155,7 +159,9 @@ public class SimpleQResource extends QResource {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         JsonElement result = new JsonObject();
 
-        QuerySolution querySolution;
+        return "";
+
+        /*QuerySolution querySolution;
         if (solutions.hasNext()){
             querySolution = solutions.next();
             result = serializeSolution(querySolution);
@@ -171,7 +177,8 @@ public class SimpleQResource extends QResource {
             return gson.toJson(arrResult);
         } else {
             return gson.toJson(result);
-        }
+        }*/
+
     }
 
 

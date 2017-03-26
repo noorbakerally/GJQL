@@ -4,6 +4,7 @@ import fr.opensensingcity.GJQL.qresource.QResource;
 import org.apache.jena.graph.Node;
 import org.apache.jena.graph.NodeFactory;
 import org.apache.jena.query.Query;
+import org.apache.jena.shared.PrefixMapping;
 import org.apache.jena.sparql.core.Var;
 
 import java.util.HashMap;
@@ -19,8 +20,14 @@ public abstract class Mapping {
     Map<String,String> prefixes;
     Map <String,String> resourceExceptions;
     Map <String, Map <String,String>> classResourceExceptions;
+
     public static final Logger LOGGER = Logger.getLogger(Mapping.class.getName());
 
+    public PrefixMapping getPrefixMapping(){
+        PrefixMapping prefixMapping = PrefixMapping.Factory.create();
+        prefixMapping.setNsPrefixes(prefixes);
+        return prefixMapping;
+    }
     public  Mapping(){
         prefixes = new HashMap<String, String>();
         resourceExceptions = new HashMap<String, String>();

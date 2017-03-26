@@ -9,6 +9,7 @@ import org.apache.jena.query.QuerySolution;
 import org.apache.jena.query.ResultSet;
 import org.apache.jena.sparql.core.BasicPattern;
 import org.apache.jena.sparql.core.ResultBinding;
+import org.apache.jena.sparql.syntax.ElementGroup;
 
 import java.util.List;
 import java.util.Map;
@@ -60,7 +61,7 @@ public abstract class QResource {
     }
     public abstract  String serializeResult(ResultSet bindings);
 
-    public abstract BasicPattern generateExpression(Mapping mapping, Node subjectNode,Node  linkNode,Node predicateNode);
+    public abstract ElementGroup generateExpression(Mapping mapping, Node subjectNode, Node  linkNode, Node predicateNode);
     public abstract JsonElement serializeSolution(QuerySolution solution);
 
     public Map<String, QResource> getqResources() {
