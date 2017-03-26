@@ -18,15 +18,14 @@ import org.apache.jena.sparql.resultset.ResultsFormat;
 import org.apache.jena.sparql.syntax.ElementGroup;
 import org.junit.Test;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
+import java.io.*;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 import static org.junit.Assert.assertTrue;
 
@@ -35,13 +34,13 @@ public class TestQuery {
 
 
     @Test
-    public void testGenersateSPARQLFromJson() throws IOException, URISyntaxException {
+    public void testGenersateSPARQLFromJson() throws IOException, URISyntaxException, InterruptedException {
 
         int testPass =0;
         int testfailed =0;
-        int start = 0;
-        int stop = 8;
-        start = stop;
+        int start = 4;
+        int stop = 10;
+        //start = stop;
         for (int i=start;i<=stop;i++){
             System.out.println("##########TestQuery"+i);
             if (performithTest(i)){
@@ -61,12 +60,13 @@ public class TestQuery {
 
     }
 
-    public boolean performithTest(int ithTest) throws IOException, URISyntaxException {
+    public boolean performithTest(int ithTest) throws IOException, URISyntaxException, InterruptedException {
 
         //get absolute path to test folder
         URL location = TestQuery.class.getProtectionDomain().getCodeSource().getLocation();
         String path = location.getPath();
-        String testClassPath = path.substring(0, path.lastIndexOf("/"))+"/TestResources";
+        String testResources = path.substring(0, path.lastIndexOf("/"))+"/TestResources";
+        String testQueryResources = path.substring(0, path.lastIndexOf("/"))+"/TestQuery"+ithTest;
 
         JsonParser parser = new JsonParser();
         //get resource representation
@@ -91,7 +91,7 @@ public class TestQuery {
 
 
         //get mapping representation
-        String queryMappings = getFileContentFromResource( testClassPath+"/"+"mappings.json");
+        String queryMappings = getFileContentFromResource( testResources+"/"+"mappings.json");
         JsonObject queryMappingObject = parser.parse(queryMappings).getAsJsonObject();
         Mapping simpleMapping = MappingFactory.generateSimpleMappingFromJSON(queryMappingObject);
 
@@ -114,7 +114,7 @@ public class TestQuery {
         }
 
         //generate results from query
-        String modelIRI = testClassPath+"/graph.ttl";
+        String modelIRI = testResources+"/graph.ttl";
         ResultSet resultBindings = GraphUtils.executeSPARQL(query, modelIRI);
 
         ResultSerializer.insertResult(resultBindings,QResourceFactory.qresources);
@@ -126,7 +126,12 @@ public class TestQuery {
         root.add(resource.getrType(),result);
 
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
-        System.out.println(gson.toJson(root));
+        String outputContent = gson.toJson(root);
+        System.out.println(outputContent);
+
+        TimeUnit.SECONDS.sleep(1);
+
+        //writeToFile(outputContent,testQueryResources+"/result.json");
 
         /*ResultSetFormatter.out(resultBindings,simpleMapping.getPrefixMapping());
         String result = resource.serializeResult(resultBindings);
@@ -170,5 +175,13 @@ public class TestQuery {
         fis.close();
         String str = new String(data);
         return str;
+    }
+
+    public static void writeToFile(String text, String filename) throws IOException {
+        BufferedWriter output;
+        File file = new File(filename);
+        output = new BufferedWriter(new FileWriter(file));
+        output.write(text);
+        output.close();
     }
 }

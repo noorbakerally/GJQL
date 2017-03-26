@@ -1,6 +1,12 @@
 {
-  "_id":"P570",
-  "_type":"Parking",
-  "_fields":["name","ParkingManager.HomeOffice.name"]
+    "ParkingManager":{
+      "_id":"M0",
+      "_fields":[],
+      "Parking":{
+        "_fields":["name"],
+        "ParkingManager":{
+          "_fields":["name"]
+        }
+      }
+    }
 }
-

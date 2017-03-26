@@ -17,42 +17,52 @@
 
 
 
-pk:M2 a osc:ParkingManager;
-    osc:name "French Ville 2";
+pk:M1 a osc:ParkingManager;
+    osc:name "French Ville Manager 1";
     foaf:homepage "https://www.bordo.com/";
     osc:manages pk:P571;
-    osc:homeOffice             pk:HomeOffice2 .
+    osc:homeOffice             pk:HomeOffice1 .
 
 
-pk:M1 a osc:ParkingManager;
-    osc:name "French Ville";
+pk:M0 a osc:ParkingManager;
+    osc:name "French Ville Manager 0";
     foaf:homepage "https://www.grandlyon.com/";
-    osc:manages pk:P570,pk:P571;
-     osc:homeOffice             pk:HomeOffice1 .
+    osc:manages pk:P570,pk:P670;
+     osc:homeOffice             pk:HomeOffice0 .
+
+
+pk:HomeOffice1 a osc:HomeOffice;
+    osc:name  "M1 Homeoffice" .
+
+pk:HomeOffice0 a osc:HomeOffice;
+    osc:name  "M0 Homeoffice" .
 
 pk:P570
         a                          osc:Parking ;
-         osc:managedBy pk:M1;
-        osc:name                    "Parking NeyLabel" ;
-        rdfs:label                 "Parking NeyLabel" ;
+         osc:managedBy pk:M0;
+        osc:name                    "Parking 570" ;
+        rdfs:label                 "Parking 570" ;
         pk:nbBicycleParkingPlaces  0 ;
         pk:nbParkingSpaces         "160" ;
         geo:lat                    45.770088718787825e0 ;
         geo:long                   4.855142822219495e0 .
 
-
-pk:HomeOffice1 a osc:HomeOffice;
-    osc:name  "P570 Parking NeyLabel Homeoffice" .
-
-pk:HomeOffice2 a osc:HomeOffice;
-    osc:name  "P571 Parking NeyLabel Homeoffice" .
-
 pk:P571
          a                          osc:Parking ;
-          osc:managedBy pk:M2;
-         osc:name                    "Parking Ney 571" ;
-         rdfs:label                 "Parking Ney 571" ;
+          osc:managedBy pk:M1;
+         osc:name                    "Parking 571" ;
+         rdfs:label                 "Parking 571" ;
          pk:nbBicycleParkingPlaces  0 ;
          pk:nbParkingSpaces         "160" ;
          geo:lat                    45.770088718787825e0 ;
          geo:long                   4.855142822219495e0 .
+
+pk:P670
+        a                          osc:Parking ;
+         osc:managedBy pk:M0;
+        osc:name                    "Parking 670" ;
+        rdfs:label                 "Parking 670" ;
+        pk:nbBicycleParkingPlaces  0 ;
+        pk:nbParkingSpaces         "160" ;
+        geo:lat                    45.770088718787825e0 ;
+        geo:long                   4.855142822219495e0 .

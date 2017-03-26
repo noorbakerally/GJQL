@@ -3,7 +3,13 @@
     "_id":"M1",
     "_fields":["name"],
     "Parking":{
-      "_fields":["name"]
+      "_fields":["name"],
+      "ParkingManager":{
+        "_fields":["name"],
+        "HomeOffice":{
+          "_fields":["name"]
+        }
+      }
     }
   }
 }

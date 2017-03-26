@@ -1,34 +1,30 @@
 {
-  "_id": "P570",
-  "_type": "Parking",
-  "_fields": [
-    "name",
-    "lat",
-    "long"
-  ],
-  "name": "Parking NeyLabel",
-  "lat": "45.770088718787825e0",
-  "long": "4.855142822219495e0",
   "ParkingManager": {
-    "_id": "M1",
     "_type": "ParkingManager",
+    "_id": "M1",
+    "name": "French Ville Manager 1",
+    "homepage": "https://www.bordo.com/",
     "_fields": [
       "name",
       "homepage"
     ],
-    "name": "French Ville",
-    "homepage": "https://www.grandlyon.com/",
-    "Parking": {
-      "_id": "P571",
-      "_type": "Parking",
-      "_fields": [
-        "name",
-        "lat",
-        "long"
-      ],
-      "name": "Parking Ney 571",
-      "lat": "45.770088718787825e0",
-      "long": "4.855142822219495e0"
-    }
+    "Parking": [
+      {
+        "_type": "Parking",
+        "name": "Parking 571",
+        "_fields": [
+          "name"
+        ]
+      }
+    ],
+    "HomeOffice": [
+      {
+        "_type": "HomeOffice",
+        "name": "M1 Homeoffice",
+        "_fields": [
+          "name"
+        ]
+      }
+    ]
   }
 }

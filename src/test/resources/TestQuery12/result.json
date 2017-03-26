@@ -1,25 +1,36 @@
 {
   "ParkingManager": {
+    "_type": "ParkingManager",
+    "_id": "M1",
+    "name": "French Ville Manager 1",
     "_fields": [
       "name"
     ],
-    "_type": "ParkingManager",
-    "_id": "M1",
-    "name": "French Ville",
     "Parking": [
       {
         "_type": "Parking",
+        "name": "Parking 571",
         "_fields": [
           "name"
         ],
-        "name": "Parking Ney 571"
-      },
-      {
-        "_type": "Parking",
-        "_fields": [
-          "name"
-        ],
-        "name": "Parking NeyLabel"
+        "ParkingManager": [
+          {
+            "_type": "ParkingManager",
+            "name": "French Ville Manager 1",
+            "_fields": [
+              "name"
+            ],
+            "HomeOffice": [
+              {
+                "_type": "HomeOffice",
+                "name": "M1 Homeoffice",
+                "_fields": [
+                  "name"
+                ]
+              }
+            ]
+          }
+        ]
       }
     ]
   }

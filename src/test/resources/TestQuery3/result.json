@@ -2,24 +2,17 @@
   "ParkingManager": {
     "_type": "ParkingManager",
     "_id": "M1",
-    "name": "French Ville",
-    "homepage": "https://www.grandlyon.com/",
-    "fields": [
+    "name": "French Ville Manager 1",
+    "homepage": "https://www.bordo.com/",
+    "_fields": [
       "name",
       "homepage"
     ],
     "Parking": [
       {
         "_type": "Parking",
-        "name": "Parking Ney 571",
-        "fields": [
-          "name"
-        ]
-      },
-      {
-        "_type": "Parking",
-        "name": "Parking NeyLabel",
-        "fields": [
+        "name": "Parking 571",
+        "_fields": [
           "name"
         ]
       }

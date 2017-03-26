@@ -1,10 +1,40 @@
 {
-  "_id": "P570",
-  "_type": "Parking",
-  "_fields": [
-    "name",
-    "ParkingManager.HomeOffice.name"
-  ],
-  "name": "Parking NeyLabel",
-  "ParkingManager.HomeOffice.name": "P570 Parking NeyLabel Homeoffice"
-}
+  "ParkingManager": {
+    "_type": "ParkingManager",
+    "_id": "M0",
+    "_fields": [],
+    "Parking": [
+      {
+        "_type": "Parking",
+        "name": "Parking 570",
+        "_fields": [
+          "name"
+        ],
+        "ParkingManager": [
+          {
+            "_type": "ParkingManager",
+            "name": "French Ville Manager 0",
+            "_fields": [
+              "name"
+            ]
+          }
+        ]
+      },
+      {
+        "_type": "Parking",
+        "name": "Parking 670",
+        "_fields": [
+          "name"
+        ],
+        "ParkingManager": [
+          {
+            "_type": "ParkingManager",
+            "name": "French Ville Manager 0",
+            "_fields": [
+              "name"
+            ]
+          }
+        ]
+      }
+    ]
+  }

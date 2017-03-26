@@ -5,7 +5,7 @@
     "ParkingManager":{
       "_fields":["name","homepage"],
       "Parking":{
-        "_id":"P571",
+        "_id":"P670",
         "_fields":["name","lat","long"]
       }
     }
