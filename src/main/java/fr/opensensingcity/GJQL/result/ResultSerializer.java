@@ -79,7 +79,7 @@ public class ResultSerializer {
                 result.addProperty(afield,currentResult.getField(afield));
                 fields.add(afield);
             }
-            result.add("fields",fields);
+            result.add("_fields",fields);
 
             for (String childType:resource.getqResources().keySet()){
                 QResource currentQResource = resource.getqResources().get(childType);

@@ -3,7 +3,7 @@
     "_type": "Parking",
     "_id": "P570",
     "name": "Parking NeyLabel",
-    "fields": [
+    "_fields": [
       "name"
     ]
   }

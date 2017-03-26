@@ -5,7 +5,7 @@
     "name": "Parking NeyLabel",
     "lat": "45.770088718787825e0",
     "long": "4.855142822219495e0",
-    "fields": [
+    "_fields": [
       "name",
       "lat",
       "long"
@@ -15,7 +15,7 @@
         "_type": "ParkingManager",
         "name": "French Ville",
         "homepage": "https://www.grandlyon.com/",
-        "fields": [
+        "_fields": [
           "name",
           "homepage"
         ]

@@ -1,12 +1,13 @@
 {
-  "_id":"P570",
-  "_type":"Parking",
-  "_fields":["name","lat","long"],
-  "ParkingManager":{
-    "_fields":["name","homepage"],
-    "Parking":{
-      "_id":"P571",
-      "_fields":["name","lat","long"]
+  "Parking":{
+    "_id":"P570",
+    "_fields":["name","lat","long"],
+    "ParkingManager":{
+      "_fields":["name","homepage"],
+      "Parking":{
+        "_id":"P571",
+        "_fields":["name","lat","long"]
+      }
     }
   }
 }
