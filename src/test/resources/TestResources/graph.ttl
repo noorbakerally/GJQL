@@ -21,7 +21,7 @@ pk:M2 a osc:ParkingManager;
     osc:name "French Ville 2";
     foaf:homepage "https://www.bordo.com/";
     osc:manages pk:P571;
-     osc:homeOffice             osc:HomeOffice2 .
+    osc:homeOffice             osc:HomeOffice2 .
 
 
 pk:M1 a osc:ParkingManager;
