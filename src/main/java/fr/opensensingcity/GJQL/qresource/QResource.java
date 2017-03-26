@@ -2,6 +2,7 @@ package fr.opensensingcity.GJQL.qresource;
 
 import com.google.gson.JsonElement;
 import fr.opensensingcity.GJQL.mapping.Mapping;
+import fr.opensensingcity.GJQL.result.Result;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.jena.graph.Node;
 import org.apache.jena.query.Query;
@@ -11,8 +12,7 @@ import org.apache.jena.sparql.core.BasicPattern;
 import org.apache.jena.sparql.core.ResultBinding;
 import org.apache.jena.sparql.syntax.ElementGroup;
 
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by bakerally on 3/19/17.
@@ -26,7 +26,15 @@ public abstract class QResource {
     String rType;
     List<String> atomicFields;
     Map<String, QResource> qResources;
+    Map <String,Result> results;
 
+
+    public QResource(){
+        atomicFields = new ArrayList<String>();
+        qResources = new HashMap<String, QResource>();
+        Random random = new Random();
+        qid = String.valueOf(Math.abs(random.nextLong()));
+    }
 
     public String getrId() {
         return rId;

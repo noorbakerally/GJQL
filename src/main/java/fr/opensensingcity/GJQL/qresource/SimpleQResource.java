@@ -26,10 +26,7 @@ import java.util.*;
  */
 public class SimpleQResource extends QResource {
     public SimpleQResource(){
-        atomicFields = new ArrayList<String>();
-        qResources = new HashMap<String, QResource>();
-        Random random = new Random();
-        qid = String.valueOf(Math.abs(random.nextLong()));
+        super();
     }
 
     public ElementGroup generateExpression(Mapping mapping, Node subjectNode, Node  linkNode, Node predicateNode) {
