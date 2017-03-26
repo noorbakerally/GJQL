@@ -36,7 +36,7 @@ public class ResultSerializer {
 
                     for (String atomicField:qResource.getAtomicFields()){
                          String vName = atomicField+"_"+qResource.getQid();
-                         Field fx = new SimpleField(atomicField,solution.get(vName).toString());
+                         Field fx = new SimpleField(atomicField,solution.get(vName).asLiteral().getLexicalForm());
                          r1.fields.put(atomicField,fx);
                     }
                     qResource.getResults().put(idValue,r1);
@@ -63,15 +63,23 @@ public class ResultSerializer {
             Result currentResult = resource.getResults().get(rid);
             JsonObject result = new JsonObject();
             result.addProperty("_type",resource.getrType());
+
+            JsonArray fields = new JsonArray();
             if (resource.hasId()){
                 result.addProperty("_id",resource.getrId());
             }
             if (resource.hasType()){
                 result.addProperty("_type",resource.getrType());
             }
+
+            //adding a property for every field in the
+            //json object and setting a value
             for (String afield:resource.getAtomicFields()){
+
                 result.addProperty(afield,currentResult.getField(afield));
+                fields.add(afield);
             }
+            result.add("fields",fields);
 
             for (String childType:resource.getqResources().keySet()){
                 QResource currentQResource = resource.getqResources().get(childType);

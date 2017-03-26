@@ -1,8 +1,10 @@
 {
-  "_id": "P570",
-  "_type": "Parking",
-  "_fields": [
-    "name"
-  ],
-  "name": "Parking Ney"
+  "Parking": {
+    "_type": "Parking",
+    "_id": "P570",
+    "name": "Parking NeyLabel",
+    "fields": [
+      "name"
+    ]
+  }
 }
