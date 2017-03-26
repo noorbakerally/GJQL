@@ -110,6 +110,7 @@ public class SimpleQResource extends QResource {
     public JsonElement serializeSolution(QuerySolution solution){
         JsonParser parser = new JsonParser();
         JsonObject result = new JsonObject();
+
         if (hasId()){
             result.addProperty("_id",rId);
         }

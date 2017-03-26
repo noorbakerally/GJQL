@@ -11,16 +11,18 @@ import java.util.Set;
  * Created by bakerally on 3/19/17.
  */
 public class QResourceFactory {
-    public static QResource loadSimpleQResourceFromJSON(JsonObject queryObject){
+    public static QResource loadSimpleQResourceFromJSON(String type, JsonObject queryObject){
         QResource simpleQResource = new SimpleQResource();
+
+
+        simpleQResource.setrType(type);
+
 
         if (queryObject.has("_id")){
             simpleQResource.setrId(queryObject.get("_id").getAsString());
         }
 
-        if (queryObject.has("_type")){
-            simpleQResource.setrType(queryObject.get("_type").getAsString());
-        }
+
 
         if (queryObject.has("_fields")) {
             //get the _fields iterator
@@ -36,17 +38,16 @@ public class QResourceFactory {
                 simpleQResource.addAtomicFields(currentField.getAsString());
             }
         }
-        //remote element which have been processed
-        queryObject.remove("_id");
-        queryObject.remove("_type");
-        queryObject.remove("fields");
+
 
         Iterator<Map.Entry<String, JsonElement>> remainingElements = queryObject.entrySet().iterator();
         while (remainingElements.hasNext()){
             Map.Entry<String, JsonElement> currentRemainingElement = remainingElements.next();
             if (currentRemainingElement.getValue().isJsonObject()){
+                String rtype = currentRemainingElement.getKey();
+                JsonElement rObject = currentRemainingElement.getValue();
                 JsonObject currentFieldAsJsonObject = currentRemainingElement.getValue().getAsJsonObject();
-                QResource newQResource = QResourceFactory.loadSimpleQResourceFromJSON(currentFieldAsJsonObject);
+                QResource newQResource = QResourceFactory.loadSimpleQResourceFromJSON(rtype,rObject.getAsJsonObject());
                 simpleQResource.addQResource(currentRemainingElement.getKey(),newQResource);
             }
         }
