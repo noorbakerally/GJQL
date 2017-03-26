@@ -5,11 +5,7 @@
     "_fields":["name","lat","long"],
     "ParkingManager":{
       "_id":"M1",
-      "_fields":["name","homepage"],
-      "Parking":{
-        "_id":"P571",
-        "_fields":["name","lat","long"]
-      }
+      "_fields":["name","homepage"]
     }
   }
 }
