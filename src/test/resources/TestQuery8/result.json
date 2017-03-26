@@ -1,9 +1,36 @@
 {
-  "_id": "P570",
-  "_fields": [
-    "name",
-    "Manager.name"
-  ],
-  "name": "Parking NeyLabel",
-  "Manager.name": "French Ville"
+  "ParkingManager": {
+    "_type": "ParkingManager",
+    "_id": "M1",
+    "name": "French Ville",
+    "homepage": "https://www.grandlyon.com/",
+    "_fields": [
+      "name",
+      "homepage"
+    ],
+    "Parking": [
+      {
+        "_type": "Parking",
+        "name": "Parking NeyLabel",
+        "_fields": [
+          "name"
+        ]
+      },
+      {
+        "_type": "Parking",
+        "name": "Parking Ney 571",
+        "_fields": [
+          "name"
+        ]
+      }
+    ],
+    "HomeOffice": {
+      "_type": "HomeOffice",
+      "_id": "HomeOffice1",
+      "name": "P570 Parking NeyLabel Homeoffice",
+      "_fields": [
+        "name"
+      ]
+    }
+  }
 }

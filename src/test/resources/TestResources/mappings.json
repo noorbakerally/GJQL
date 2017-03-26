@@ -1,9 +1,9 @@
 {
-  "resourceNamespace":"http://opensensingcity.emse.fr/Parking/resource/",
+  "resourceNamespace":"http://opensensingcity.emse.fr/resource/",
   "classNamespace":"http://opensensingcity.emse.fr/ontology/",
   "prefixes":{
     "osc":"http://opensensingcity.emse.fr/ontology/",
-    "pk":"http://opensensingcity.emse.fr/Parking/resource/",
+    "pk":"http://opensensingcity.emse.fr/resource/",
     "dc":"http://purl.org/dc/elements/1.1/",
     "geo":"http://www.w3.org/2003/01/geo/wgs84_pos#",
     "foaf":"http://xmlns.com/foaf/0.1/"
