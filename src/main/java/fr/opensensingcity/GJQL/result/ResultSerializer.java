@@ -53,7 +53,7 @@ public class ResultSerializer {
 
         boolean isArray = false;
         JsonElement results = new JsonObject ();
-        if (resource.getResults().keySet().size() > 1){
+        if (resource.getResults().keySet().size() > 1 || !resource.hasId()){
             results = new JsonArray();
             isArray = true;
         }

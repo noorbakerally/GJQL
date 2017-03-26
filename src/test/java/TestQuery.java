@@ -40,7 +40,7 @@ public class TestQuery {
         int testPass =0;
         int testfailed =0;
         int start = 0;
-        int stop = 4;
+        int stop = 6;
         start = stop;
         for (int i=start;i<=stop;i++){
             System.out.println("##########TestQuery"+i);
