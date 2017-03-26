@@ -1,7 +1,0 @@
-PREFIX  osc:  <http://opensensingcity.emse.fr/ontology/>
-PREFIX  pkr:   <http://opensensingcity.emse.fr/Parking/resource/>
-SELECT ?name
-WHERE {
-        pkr:P570 a osc:Parking;
-            osc:name ?name
-}

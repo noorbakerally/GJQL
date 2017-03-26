@@ -4,7 +4,8 @@
   "prefixes":{
     "osc":"http://opensensingcity.emse.fr/ontology/",
     "pk":"http://opensensingcity.emse.fr/Parking/resource/",
-    "dc":"http://purl.org/dc/elements/1.1/"
+    "dc":"http://purl.org/dc/elements/1.1/",
+    "geo":"http://www.w3.org/2003/01/geo/wgs84_pos#"
   },
   "resourceExceptions":{
     "homepage":"http://xmlns.com/foaf/0.1/homepage",
@@ -15,7 +16,11 @@
       "ParkingManager":"http://opensensingcity.emse.fr/ontology/managedBy"
     },
     "ParkingManager":{
-      "Parking":"http://opensensingcity.emse.fr/ontology/manages"
+      "Parking":"http://opensensingcity.emse.fr/ontology/manages",
+      "HomeOffice":"osc:homeOffice"
+    },
+    "HomeOffice":{
+      "name":"osc:name"
     }
   }
 }

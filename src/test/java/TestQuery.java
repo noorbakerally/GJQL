@@ -83,7 +83,7 @@ public class TestQuery {
         System.out.println(resource.toStr());
 
         //get mapping representation
-        String queryMappings = getFileContentFromResource(ithTest,"mappings.json");
+        String queryMappings = getFileContentFromResource( testClassPath+"/"+"mappings.json");
         JsonObject queryMappingObject = parser.parse(queryMappings).getAsJsonObject();
         Mapping simpleMapping = MappingFactory.generateSimpleMappingFromJSON(queryMappingObject);
 
@@ -124,6 +124,17 @@ public class TestQuery {
         String testClassPath = path.substring(0, path.lastIndexOf("/"))+"/TestQuery"+ithTest;
 
         File file = new File(testClassPath+"/"+filename);
+        FileInputStream fis = new FileInputStream(file);
+        byte[] data = new byte[(int) file.length()];
+        fis.read(data);
+        fis.close();
+        String str = new String(data);
+        return str;
+    }
+
+    public static String getFileContentFromResource(String filename) throws URISyntaxException, IOException {
+        //get absolute path to test folder
+        File file = new File(filename);
         FileInputStream fis = new FileInputStream(file);
         byte[] data = new byte[(int) file.length()];
         fis.read(data);

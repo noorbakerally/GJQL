@@ -13,20 +13,45 @@
 @prefix dc:    <http://purl.org/dc/elements/1.1/> .
 @prefix ts:    <http://opensensingcity.emse.fr/ontologies/tempstatus> .
 @prefix osc:   <http://opensensingcity.emse.fr/ontology/> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/>.
+
+
+
+pk:M2 a osc:ParkingManager;
+    osc:name "French Ville 2";
+    foaf:homepage "https://www.bordo.com/";
+    osc:manages pk:P571;
+     osc:homeOffice             osc:HomeOffice2 .
+
+
+pk:M1 a osc:ParkingManager;
+    osc:name "French Ville";
+    foaf:homepage "https://www.grandlyon.com/";
+    osc:manages pk:P570,pk:P571;
+     osc:homeOffice             osc:HomeOffice1 .
 
 pk:P570
         a                          osc:Parking ;
-        osc:name                    "Parking Ney" ;
-        rdfs:label                 "Parking Ney" ;
+         osc:managedBy pk:M1;
+        osc:name                    "Parking NeyLabel" ;
+        rdfs:label                 "Parking NeyLabel" ;
         pk:nbBicycleParkingPlaces  0 ;
         pk:nbParkingSpaces         "160" ;
         geo:lat                    45.770088718787825e0 ;
         geo:long                   4.855142822219495e0 .
 
+
+osc:HomeOffice1 a osc:HomeOffice;
+    osc:name  "P570 Parking NeyLabel Homeoffice" .
+
+osc:HomeOffice2 a osc:HomeOffice;
+    osc:name  "P571 Parking NeyLabel Homeoffice" .
+
 pk:P571
          a                          osc:Parking ;
-         osc:name                    "Parking Ney" ;
-         rdfs:label                 "Parking Ney" ;
+          osc:managedBy pk:M2;
+         osc:name                    "Parking Ney 571" ;
+         rdfs:label                 "Parking Ney 571" ;
          pk:nbBicycleParkingPlaces  0 ;
          pk:nbParkingSpaces         "160" ;
          geo:lat                    45.770088718787825e0 ;
