@@ -80,7 +80,14 @@ public class TestQuery {
         QResource resource = QResourceFactory.
                 loadSimpleQResourceFromJSON(rootELement.getKey(),rootELement.getValue().getAsJsonObject());
 
-        System.out.println(resource.toStr());
+        /*QResourceFactory.qresources.put("root",resource);
+        for(String key:QResourceFactory.qresources.keySet()){
+            System.out.println(key);
+        }
+
+        System.out.println("root:"+QResourceFactory.qresources.get("root").getQid());
+        System.out.println(resource.toStr());*/
+
 
         //get mapping representation
         String queryMappings = getFileContentFromResource( testClassPath+"/"+"mappings.json");

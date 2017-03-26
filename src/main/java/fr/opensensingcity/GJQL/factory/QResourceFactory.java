@@ -3,6 +3,8 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import fr.opensensingcity.GJQL.qresource.QResource;
 import fr.opensensingcity.GJQL.qresource.SimpleQResource;
+
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
@@ -11,6 +13,8 @@ import java.util.Set;
  * Created by bakerally on 3/19/17.
  */
 public class QResourceFactory {
+    public static Map<String,QResource> qresources = new HashMap<String, QResource>();
+
     public static QResource loadSimpleQResourceFromJSON(String type, JsonObject queryObject){
         QResource simpleQResource = new SimpleQResource();
 
@@ -40,6 +44,7 @@ public class QResourceFactory {
         }
 
 
+
         Iterator<Map.Entry<String, JsonElement>> remainingElements = queryObject.entrySet().iterator();
         while (remainingElements.hasNext()){
             Map.Entry<String, JsonElement> currentRemainingElement = remainingElements.next();
@@ -49,6 +54,7 @@ public class QResourceFactory {
                 JsonObject currentFieldAsJsonObject = currentRemainingElement.getValue().getAsJsonObject();
                 QResource newQResource = QResourceFactory.loadSimpleQResourceFromJSON(rtype,rObject.getAsJsonObject());
                 simpleQResource.addQResource(currentRemainingElement.getKey(),newQResource);
+                qresources.put(newQResource.getQid(),newQResource);
             }
         }
 

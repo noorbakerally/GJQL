@@ -28,6 +28,7 @@ public abstract class QResource {
     Map<String, QResource> qResources;
     Map <String,Result> results;
 
+    QResource rootParent;
 
     public QResource(){
         atomicFields = new ArrayList<String>();
