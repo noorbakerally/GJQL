@@ -5,4 +5,7 @@ package fr.opensensingcity.GJQL.result;
  */
 public class SimpleField extends Field {
 
+    public SimpleField(String fieldName, String fieldValue) {
+        super(fieldName, fieldValue);
+    }
 }

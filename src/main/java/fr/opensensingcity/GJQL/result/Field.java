@@ -8,6 +8,10 @@ public abstract  class Field {
     String fieldValue;
     String datatypeIRI;
 
+    public Field(String fieldName,String fieldValue){
+        this.fieldName = fieldName;
+        this.fieldValue = fieldValue;
+    }
     public String getFieldName() {
         return fieldName;
     }
@@ -31,4 +35,6 @@ public abstract  class Field {
     public void setDatatypeIRI(String datatypeIRI) {
         this.datatypeIRI = datatypeIRI;
     }
+
+
 }

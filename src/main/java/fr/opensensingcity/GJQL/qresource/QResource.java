@@ -35,6 +35,7 @@ public abstract class QResource {
         qResources = new HashMap<String, QResource>();
         Random random = new Random();
         qid = String.valueOf(Math.abs(random.nextLong()));
+        results = new HashMap<String, Result>();
     }
 
     public String getrId() {
@@ -87,6 +88,15 @@ public abstract class QResource {
 
     public void setQid(String qid) {
         this.qid = qid;
+    }
+
+
+    public Map<String, Result> getResults() {
+        return results;
+    }
+
+    public void setResults(Map<String, Result> results) {
+        this.results = results;
     }
 
     public String toStr(){

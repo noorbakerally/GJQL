@@ -31,14 +31,14 @@ public class SimpleQResource extends QResource {
 
     public ElementGroup generateExpression(Mapping mapping, Node subjectNode, Node  linkNode, Node predicateNode) {
 
-        Node mainSubjectNode = Var.alloc("Id"+qid);
+        Node mainSubjectNode = Var.alloc("Id_"+qid);
         ElementGroup bp = new ElementGroup() ;
 
         //creating an identified subject if there is an Id
         if (hasId()){
             String resourceIRI =  mapping.getDefaultResourceNamespace() + getrId();
             mainSubjectNode = NodeFactory.createURI(resourceIRI);
-            ElementBind x = new ElementBind(Var.alloc("Id"+qid), NodeValue.makeNode(mainSubjectNode));
+            ElementBind x = new ElementBind(Var.alloc("Id_"+qid), NodeValue.makeNode(mainSubjectNode));
             bp.addElement(x);
 
         }
@@ -56,7 +56,7 @@ public class SimpleQResource extends QResource {
             if (!field.contains(".")){
                 //i.e. purely atomic field
                 predicateNode =  mapping.getNode(getrType(),field);
-                Var variableNode = Var.alloc(field+getQid());
+                Var variableNode = Var.alloc(field+"_"+getQid());
                 bp.addTriplePattern(new Triple(mainSubjectNode, predicateNode ,variableNode)) ;
 
             } else {
@@ -95,7 +95,7 @@ public class SimpleQResource extends QResource {
             predicateNode = mapping.getNode(getrType(),field);
 
             //check if qresource has id
-            subjectNode = Var.alloc("Id"+currentQResource.qid);
+            subjectNode = Var.alloc("Id_"+currentQResource.qid);
 
             if (currentQResource.hasId()){
                 String resourceIRI = mapping.getDefaultResourceNamespace() + getrId();

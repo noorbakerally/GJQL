@@ -88,7 +88,7 @@ public abstract class Mapping {
         if (field.contains(".")){
             field = field.replace(".","");
         }
-        return Var.alloc(field+qResource.getQid());
+        return Var.alloc(field+"_"+qResource.getQid());
     }
 
     public String getResourceIRI(String field){
