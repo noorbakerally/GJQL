@@ -9,11 +9,18 @@ import fr.opensensingcity.GJQL.factory.QResourceFactory;
 import fr.opensensingcity.GJQL.mapping.Mapping;
 import fr.opensensingcity.GJQL.qresource.QResource;
 import fr.opensensingcity.GJQL.result.ResultSerializer;
+import org.apache.jena.graph.Node;
+import org.apache.jena.graph.NodeFactory;
+import org.apache.jena.graph.Triple;
 import org.apache.jena.query.*;
 import org.apache.jena.sparql.algebra.Op;
 import org.apache.jena.sparql.algebra.OpAsQuery;
 import org.apache.jena.sparql.algebra.op.OpBGP;
 import org.apache.jena.sparql.core.BasicPattern;
+import org.apache.jena.sparql.core.TriplePath;
+import org.apache.jena.sparql.core.Var;
+import org.apache.jena.sparql.path.Path;
+import org.apache.jena.sparql.path.PathFactory;
 import org.apache.jena.sparql.resultset.ResultsFormat;
 import org.apache.jena.sparql.syntax.ElementGroup;
 import org.junit.Test;
@@ -21,10 +28,7 @@ import org.junit.Test;
 import java.io.*;
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 import static org.junit.Assert.assertTrue;
@@ -38,9 +42,9 @@ public class TestQuery {
 
         int testPass =0;
         int testfailed =0;
-        int start = 4;
-        int stop = 10;
-        //start = stop;
+        int start = 13;
+        int stop = 13;
+        start = stop;
         for (int i=start;i<=stop;i++){
             System.out.println("##########TestQuery"+i);
             if (performithTest(i)){
@@ -95,6 +99,8 @@ public class TestQuery {
         JsonObject queryMappingObject = parser.parse(queryMappings).getAsJsonObject();
         Mapping simpleMapping = MappingFactory.generateSimpleMappingFromJSON(queryMappingObject);
 
+
+
         //generate query
         ElementGroup expression = resource.generateExpression(simpleMapping,null,null,null);
 
@@ -129,7 +135,9 @@ public class TestQuery {
         String outputContent = gson.toJson(root);
         System.out.println(outputContent);
 
-        TimeUnit.SECONDS.sleep(1);
+
+
+
 
         //writeToFile(outputContent,testQueryResources+"/result.json");
 

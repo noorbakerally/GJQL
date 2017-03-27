@@ -1,0 +1,37 @@
+{
+  "ParkingManager": {
+    "_type": "ParkingManager",
+    "_id": "M1",
+    "name": "French Ville Manager 1",
+    "_fields": [
+      "name"
+    ],
+    "Parking": [
+      {
+        "_type": "Parking",
+        "name": "Parking 571",
+        "_fields": [
+          "name"
+        ],
+        "ParkingManager": [
+          {
+            "_type": "ParkingManager",
+            "name": "French Ville Manager 1",
+            "_fields": [
+              "name"
+            ],
+            "HomeOffice": [
+              {
+                "_type": "HomeOffice",
+                "name": "M1 Homeoffice",
+                "_fields": [
+                  "name"
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

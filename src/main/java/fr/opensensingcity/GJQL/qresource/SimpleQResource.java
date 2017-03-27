@@ -11,11 +11,15 @@ import org.apache.jena.sparql.algebra.OpAsQuery;
 import org.apache.jena.sparql.algebra.op.OpBGP;
 import org.apache.jena.sparql.core.BasicPattern;
 import org.apache.jena.sparql.core.ResultBinding;
+import org.apache.jena.sparql.core.TriplePath;
 import org.apache.jena.sparql.core.Var;
 import org.apache.jena.sparql.expr.NodeValue;
+import org.apache.jena.sparql.path.Path;
+import org.apache.jena.sparql.path.PathFactory;
 import org.apache.jena.sparql.syntax.Element;
 import org.apache.jena.sparql.syntax.ElementBind;
 import org.apache.jena.sparql.syntax.ElementGroup;
+import org.apache.jena.sparql.syntax.ElementPathBlock;
 import org.apache.jena.sparql.util.ResultSetUtils;
 import org.apache.jena.vocabulary.RDF;
 
@@ -65,25 +69,29 @@ public class SimpleQResource extends QResource {
                 //split fields to get all parts involved
                 List<String> fields = new LinkedList<String>(Arrays.asList(field.split("\\.")));
 
-                //treat the first element and connect it to main node
-                String iri1 = fields.get(0);
-                Node p1  = mapping.getNode(getrType(),iri1);
-                Node pBNode = NodeFactory.createBlankNode();
+                String field0 = fields.get(0);
+                Node p0  = mapping.getNode(getrType(),field0);
 
-                bp.addTriplePattern(new Triple(mainSubjectNode, p1 ,pBNode)) ;
+                String field1 = fields.get(1);
+                Node p1  = mapping.getNode(fields.get(0),field1);
 
-                //treat remaining elements and create the chain
-                //with everything intermediary being blank nodes
-                int i=1;
+                Path finalPath = PathFactory.pathSeq(PathFactory.pathLink(p0),PathFactory.pathLink(p1));
+
+                int i=2;
                 while (i<fields.size()){
-                    Node currentField = mapping.getNode(fields.get(i-1),fields.get(i));
-                    if (i==fields.size()-1){
-                        bp.addTriplePattern(new Triple(pBNode, currentField ,mapping.getVNode(field,this))) ;
-                    } else {
-                        bp.addTriplePattern(new Triple(pBNode,currentField,pBNode = NodeFactory.createBlankNode()));
-                    }
+                    String fieldFinal = fields.get(i);
+                    Node pFinal  = mapping.getNode(fields.get(i-1),fieldFinal);
+                    finalPath = PathFactory.pathSeq(finalPath,PathFactory.pathLink(pFinal));
                     i++;
                 }
+
+                field = field.replace(".","");
+                TriplePath t = new TriplePath(mainSubjectNode,finalPath,mapping.getVNode(field,this));
+                ElementPathBlock tp = new ElementPathBlock();
+                tp.addTriplePath(t);
+
+                bp.addElement(tp);
+
             }
         }
 

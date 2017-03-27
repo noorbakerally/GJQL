@@ -25,6 +25,7 @@ public abstract class Result {
     }
 
     public  String getField(String fieldName){
+        fieldName = fieldName.replace(".","");
         Field field = fields.get(fieldName);
         return field.getFieldValue();
     }

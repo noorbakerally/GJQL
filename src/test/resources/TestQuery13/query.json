@@ -1,0 +1,7 @@
+{
+  "Parking":{
+    "_id":"P570",
+    "_fields":["name","ParkingManager.HomeOffice.name"]
+  }
+}
+

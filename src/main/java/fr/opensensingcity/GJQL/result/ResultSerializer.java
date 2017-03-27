@@ -35,6 +35,9 @@ public class ResultSerializer {
                     Result r1 = new SimpleResult();
 
                     for (String atomicField:qResource.getAtomicFields()){
+                         if (atomicField.contains(".")){
+                             atomicField = atomicField.replace(".","");
+                         }
                          String vName = atomicField+"_"+qResource.getQid();
                          Field fx = new SimpleField(atomicField,solution.get(vName));
                          r1.fields.put(atomicField,fx);
