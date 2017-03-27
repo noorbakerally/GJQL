@@ -16,7 +16,7 @@ import java.util.Map;
  * Created by bakerally on 3/26/17.
  */
 public class ResultSerializer {
-    public static String insertResult(ResultSet resultBindings, Map<String,QResource> qresources){
+    public void insertResult(ResultSet resultBindings, Map<String,QResource> qresources){
 
         List<QuerySolution> querySolutionList = new ArrayList<QuerySolution>();
 
@@ -29,6 +29,7 @@ public class ResultSerializer {
 
             for (QuerySolution solution:querySolutionList){
                 String idName = "Id_"+qResource.getQid();
+                //System.out.println(idName + " "+solution.get(idName).isResource()+" Solution:"+solution);
                 String idValue = solution.get(idName).toString();
 
                 if (qResource.getResults().get(idValue) == null) {
@@ -46,13 +47,9 @@ public class ResultSerializer {
                 }
             }
         }
-
-
-
-        return "";
     }
 
-    public static JsonElement JSONSerializer(QResource resource) {
+    public JsonElement JSONSerializer(QResource resource) {
 
         boolean isArray = false;
         JsonElement results = new JsonObject ();

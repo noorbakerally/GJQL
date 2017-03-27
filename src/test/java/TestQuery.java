@@ -42,8 +42,8 @@ public class TestQuery {
 
         int testPass =0;
         int testfailed =0;
-        int start = 13;
-        int stop = 13;
+        int start = 1;
+        int stop = 2;
         start = stop;
         for (int i=start;i<=stop;i++){
             System.out.println("##########TestQuery"+i);
@@ -59,6 +59,8 @@ public class TestQuery {
         }
         System.out.println("Test Passed:"+testPass);
         System.out.println("Test Failed:"+testfailed);
+
+
 
 
 
@@ -112,7 +114,7 @@ public class TestQuery {
         }
         query.setQuerySelectType();
         query.setQueryResultStar(true);
-        System.out.println(query.serialize());
+        //System.out.println(query.serialize());
 
 
         for (String prefix:simpleMapping.getPrefixes().keySet()){
@@ -123,17 +125,19 @@ public class TestQuery {
         String modelIRI = testResources+"/graph.ttl";
         ResultSet resultBindings = GraphUtils.executeSPARQL(query, modelIRI);
 
-        ResultSerializer.insertResult(resultBindings,QResourceFactory.qresources);
+        ResultSerializer resultSerializer = new ResultSerializer();
+        resultSerializer.insertResult(resultBindings,QResourceFactory.qresources);
 
         //System.out.println(resource.getqResources().get("Parking").getResults().toString());
 
-        JsonElement result = ResultSerializer.JSONSerializer(resource);
+        JsonElement result = resultSerializer.JSONSerializer(resource);
         JsonObject root = new JsonObject();
         root.add(resource.getrType(),result);
 
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         String outputContent = gson.toJson(root);
-        System.out.println(outputContent);
+
+        //System.out.println(outputContent);
 
 
 
@@ -147,16 +151,14 @@ public class TestQuery {
 
 
 
-        /*JsonElement generatedResultObject = parser.parse(result);
+        JsonElement generatedResultObject = parser.parse(outputContent);
 
         //load original result
         String originalResult = getFileContentFromResource(ithTest,"result.json");
         JsonElement originalResultObject = parser.parse(originalResult);
 
 
-        return (generatedResultObject.equals(originalResultObject));*/
-        return true;
-
+        return (generatedResultObject.equals(originalResultObject));
     }
 
     public static String getFileContentFromResource(int ithTest,String filename) throws URISyntaxException, IOException {
